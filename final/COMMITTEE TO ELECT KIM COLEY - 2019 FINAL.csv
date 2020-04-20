@@ -1,0 +1,54 @@
+COVER
+SBoE ID,Committee Name,Street 1,Street 2,City,State,Zip Code,Country,Postal Code,Committee Type,Report Type,Fund Type,Fund Name,Date From,Date To,Date Filed
+WAK-M7X080-C-001,COMMITTEE TO ELECT KIM COLEY,PO BOX 97275,,RALEIGH,NC,27624,United States,,Candidate Committee,2019 Final,,,07/01/2019,12/03/2019,12/09/2019
+
+OFFICERS
+Type,Name,Address,Phone
+Treasurer,COLLIN MCMICHAEL,"PO BOX 97275, RALEIGH, NC, 27624",
+Candidate,KIM COLEY,"PO BOX 97275, RALEIGH, NC, 27624",
+
+ACCOUNTS
+Code,Type,Purpose,Name,Address,Begin Balance,End Balance
+1,Checking,CHECKING,BB&T,"6659 FALLS OF NEUSE RD, RALEIGH, NC 27615",$0.00,$0.00
+
+SUMMARY
+Section,Period,Cycle
+Cash on Hand at Beginning,15724.6000,15698.2500
+RECEIPTS,0.0000,0.0000
+Aggregated Contributions from Individuals,0.0000,0.0000
+Contributions from Individuals,0.0000,0.0000
+Political Party Committees,0.0000,0.0000
+Other Political Committees (such as PACs),0.0000,0.0000
+Loan Proceeds,0.0000,0.0000
+Refunds/Reimbursements To the Committee,0.0000,26.3500
+Interest on Bank Accounts,0.0000,0.0000
+Contributions from Not-For-Profit Organizations,0.0000,0.0000
+Outside Sources of Income,0.0000,0.0000
+Legal Expense Fund - Other Sources,0.0000,0.0000
+Exempt Purchase Price Sales,0.0000,0.0000
+Total Receipts,0.0000,26.3500
+EXPENDITURES,0.0000,0.0000
+Operating Expenditures,15724.6000,15724.6000
+Contributions to Candidates/Political Committees,0.0000,0.0000
+Coordinated Party Expenditures,0.0000,0.0000
+Aggregated Non-Media Expenditures,0.0000,0.0000
+Loan Repayments,0.0000,0.0000
+Refunds/Reimbursements From the Committee,0.0000,0.0000
+In-Kind Contributions,0.0000,0.0000
+Total Expenditures,15724.6000,15724.6000
+Cash on Hand at End of Reporting Period,0.0000,0.0000
+ADDITIONAL INFORMATION,0.0000,0.0000
+Non-Monetary Gifts Given to Other Committees,0.0000,0.0000
+Outstanding Loans (incl. ones from other campaigns),0.0000,0.0000
+Debts and Obligations owed BY the Committee,0.0000,0.0000
+Debts and Obligations owed TO the Committee,0.0000,0.0000
+Account Transfers Within the Committee,0.0000,0.0000
+Administrative Support,0.0000,0.0000
+Forgiven Loans,0.0000,0.0000
+48-Hour Notice Reports Sum,0.0000,0.0000
+Contributions to be Refunded,0.0000,0.0000
+
+EXPENDITURES
+Date,Name,Street 1,Street 2,City,State,Full Zip,Country Name,Outside US Postal Code,Profession,Employer Name,Purpose Type Code,Purpose,Candidate,Office Sought,Declaration,Amount,Expenditure Type Desc,Account Abbr,Form Of Payment Desc,Description,Amount1,Sum To Date
+12/03/2019,COMMITTEE TO ELECT KIM COLEY,PO BOX 97275,,RALEIGH,NC,27624,United States,,,,O,TRANSFER TO STATE REGISTERED COMMITTEE,,,,,Operating Expense,1KC,Electronic Funds Transfer,,15724.6000,15724.6000
+

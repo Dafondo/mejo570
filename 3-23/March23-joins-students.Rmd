@@ -1,0 +1,219 @@
+---
+title: "Class 17: Joining Data Frames"
+output: html_notebook
+---
+
+In this lesson, we will learn to stack dataframes on top of each other and side by side.
+
+The dataframes we will stack on top of each other will be the governor's two 2019 half-yearly data frames. We will do that on Wednesday.
+
+The dataframes we will join side-by-side will be the voters_yancey and vhis_yancey. We will do this today.
+
+We start with two dataframes:
+* voters_yancey 
+* vhis_yancey 
+
+Can you remember how to tell how many columns and rows each has?
+
+
+Before we get started, let's load the tidyverse packages into our library...
+
+```{r}
+library(tidyverse)
+```
+
+
+
+You may also need to load the data:
+```{r}
+# This is not yet a publicly accessible URL. 
+
+#yancey_url<- "https://adminliveunc.sharepoint.com/sites/MEJO570Spring2020/Shared%20Documents/Joins%20Lectures/March2325.RData"
+
+#download.file(yancey_url, destfile = "./March2325.RData")
+
+#load("./March2325.RData")
+
+load("~/Documents/unc/mejo/570March2325.RData")
+
+
+```
+
+
+
+The first thing we will do is create a dataframe called all_yancey. We will create it by applying the left_join function to the voters_yancey and vhis_yancey dataframes.
+
+```{r}
+all_yancey<- left_join(       )
+
+all_yancey
+```
+
+
+How many columns and rows does this new dataframe have? Why?
+
+
+
+
+** Order of arguments matters**
+
+Let's see what happens when we switch the order of the dataframes. What do you think will happen?
+
+```{r}
+
+```
+
+
+Is that what you thought would happen?
+
+What *did* happen?
+
+
+
+
+
+** Explicitly stating the columns to join ** 
+
+We can also explicitly tell R which columns to use to join. We do this by adding the "by" argument and setting its value to the name of whatever column we want to use in the join. In this case, by = "ncid".
+
+How many rows and columns do you think we will get?
+
+
+```{r}
+all_yancey<- left_join(vhis_yancey, voters_yancey, WHAT GOES HERE?)
+```
+
+Is that what you expected to happen?
+
+What *did* happen?
+
+What's up with those .x and .y things on the columns names?
+
+
+
+**Full Joins**
+
+Full joins return all rows and all columns from both dataframes. 
+
+
+How many rows will this give us?
+
+```{r}
+full_yancey <- full_join(           )
+
+full_yancey
+```
+
+
+If this is giving us all rows and columns from both dataframes, what value do you think you would have in a vhis column if there isn't a vhis ncid for a particular voter ncid? For example, what would be the value of the election_lbl column if for an ncid in the voters dataframe for which there isn't a matching ncid in the vhis dataframe? (We will come back to this later.)
+
+
+
+Do you think the order of arguments in full joins will matter?
+
+
+```{r}
+full_join(            )
+
+```
+
+
+
+**Inner Joins**
+
+With inner joins, rows that don't have a match are just dropped.
+
+```{r}
+inner_yancey <- WHAT GOES HERE?
+
+inner_yancey
+```
+
+Like in full_joins the order of arguments does not matter.
+
+```{r}
+inner_join(WHAT GOES HERE?)
+```
+
+
+
+**Practical Application**
+
+Let's find voters who are registered but have never voted. 
+
+```{r}
+
+
+```
+
+
+
+If we switch the order of arguments in the left join, we would get the names of anyone anyone who voted in a Yancey County election who is not currently registered in Yancey County.
+
+```{r}
+
+
+```
+
+You will see that it appears as if there are 85 voter history records that do not match an ncid of a person who is on the voter registration roles in Yancey County. It would be important to understand that why this is the case. This may be a bookkeeping anamoly or something else.
+
+
+We might wonder whether these 85 voter history records that do not appear to have a matching person are 85 instances of a particular person, 85 different people in one election, or some combination. 
+
+Let's ask R to show us the rows that are missing a last name... then group those rows by ncid (one group for each unique ncid) ... then count the number of rows in each group... then put the result of that counting summary into a column called "unlisted" (although we could call that column anything) ... and then show us the results of all that ordered by the counting summary values in the unlisted column in descending order.
+
+
+```{r}
+
+
+
+```
+
+OK, so it's 38 unique ncid values ... 38 "people". And look at the values in the ncid column. They are different lengths. That seems strange because unique identifiers -- like Social Security numbers -- are usually the same number of characters. 
+
+Sure enough, if we look at https://s3.amazonaws.com/dl.ncsbe.gov/data/layout_ncvoter_ncvhis.txt it says that the ncid column should be 12 characters long. (In reality, most I see are six characters long. But there's clearly a discrepency here that might help us inquire with the agency about it.)
+
+The next thing we might do is take a look at just one of these ncids for which there is a missing person. Maybe we will see a pattern... 
+
+```{r}
+
+
+```
+
+Interesting. All of these show that the "voted_county_desc" is CABARRUS. That makes me wonder if this weirdness is an artifact of people moving between counties. 
+
+I wonder if the voter history records that have missing people all come from certain counties or from certain election dates. Maybe some of the records just haven't transferred yet.
+
+Let's make one group for each county, and then sub-groups for each election date (in this cased called "election_lbl") for each county.
+
+```{r}
+
+
+
+```
+
+
+
+**Filtering Joins**
+
+If you want to see *only* voters that have voted, use "semi_join". 
+
+```{r}
+
+
+```
+
+Note that the number of columns in this result are equal to the number of columns in voters_yancey.
+
+
+
+If you want to see only voters who have NEVER voted, we use anti_join. This gives us only rows from the first dataframe that have NO matches in the second dataframe.
+
+```{r}
+
+
+
+```
+
+
+So now we've covered the main ways you would join dataframes side by side. In the next lesson we will look at different ways to put dataframes on top of each other.

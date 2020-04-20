@@ -1,0 +1,51 @@
+##Instructions
+Complete this assignment in RStudio. Run all of the chunks, then Knit the markdown file to html. Upload that HTML file to the HW4 assignment on Sakai.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### 1.Calculate how many years it has been since UNC opened its doors in 1793.
+```{r}
+2020 - 1793
+```
+
+### 2. Create a variable called `coach` that stores the name of the UNC women's basketball coach.
+```{r}
+coach <- "Courtney Banghart"
+# write your code above here
+coach
+```
+
+### 3. Create a variable called `students` that stores the number of students in MEJO 570.
+```{r}
+students <- 17
+# write your code above here
+students
+```
+
+### 4. Create a variable called `instructors` that stores the names of the people teaching your classes this semester.
+
+```{r}
+instructors <- c("Ryan Thornburg", "Gary Bishop")
+# write your code above here
+instructors
+```
+
+### 5. Create a variable called `attendance` that stores the approximate number of students your classes this semester. (You will need to create your own code chunk here.)
+
+### 6. What is the average number of students in your classes this semester?
+```{r}
+attendance <- c(17,80)
+mean(attendance)
+```
+
+
+### 7. Use markdown to make an unordered list of five things. Name the list using a "header". Make the third and fifth items bold. And link the second item to the UNC.edu homepage. You can use this [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#emphasis) 
+
+## Four things about me and one thing about Japan
+- I have an older brother who is pursuing a PhD in Math at UChicago.
+- [I go to UNC-Chapel Hill](https://www.unc.edu/).
+- **When I was five, I stapled my index fingers together.**
+- **Public bathrooms in Japan have bidets that play music and bird noises to cover the sound of you doing your business.**
+- I own a book titled "1000 Chairs" which provides pictures of chairs, and excerpts on their origins and designs. I have yet to verify that it actually contains 1000 chairs.

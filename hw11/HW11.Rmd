@@ -1,0 +1,237 @@
+---
+title: "HW11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+###Load tzhe tidyverse package(s)
+```{r}
+#install.packages("tidyverse")
+library(tidyverse)
+```
+
+## 3.2.4
+
+### Ex 1
+This shows a blank grey box
+```{r}
+ggplot(data = mpg)
+```
+
+### Ex 2
+There are 234 rows and 11 columns in mpg
+```{r}
+str(mpg)
+```
+
+### Ex 4
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping=aes(x = cyl, y = hwy))
+```
+
+### Ex 5
+This plot is not useful because neither drv nor class are numerical values. A scatterplot is not a good way of visualizing this type of data.
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping=aes(x = drv, y = class))
+```
+
+## 3.3.1
+
+### Ex 1
+The color argument should come after the closing parenthesis of the aes argument.
+```{r}
+# incorrect placement of color
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
+
+# correct placement of color
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
+```
+
+### Ex 2
+Categorical
+
+- manufacturer
+- model
+- trans
+- drv
+- fl
+- class
+
+Continuous
+
+- displ
+- year
+- cyl
+- cty
+- hwy
+
+When you run `mpg` you can see this distinction by checking the datatype of each column. Columns labeled `chr` are categorical and columns labeled `int` or `dbl` are continuous.
+```{r}
+?mpg
+
+mpg
+```
+
+### Ex 3
+Using a continuous variable for `color` will plot points using a gradient of colors that span the range of the variable.
+Using a continuous variable for `size` will plot points of different sizes using buckets that span a certain subrange of the variable.
+The `shape` argument won't take a continuous variable.
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = cty))
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, size = cty))
+
+# shape doesn't work with a continuous variable
+#ggplot(data = mpg) + 
+#  geom_point(mapping = aes(x = displ, y = hwy, shape = cty))
+```
+
+### Ex 4
+Mapping cty to both color and size, causes both size and color of points to change with cty.
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = cty, size = cty))
+```
+
+## 3.5.1
+
+### Ex 1
+Using facet on a continuous variable will create a subplot for each value of the variable.
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ displ, nrow = 2)
+```
+
+### Ex 2
+Empty cells in a plot `facet_grid(drv ~ cyl)` means that there are no rows in the data with both the given `drv` and `cyl` of that cell. In the `drv` vs `cyl` plot an empty grid space means an empty subplot cell will be produced by that combination of `drv` and `cyl` values.
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_grid(drv ~ cyl)
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = drv, y = cyl))
+```
+
+### Ex 3
+The following code uses `facet_grid` but makes one-dimensional subplots. The first one `facet_grid(drv ~ .)` creates cells that run vertically, while the second one `facet_grid(. ~ cyl)` creates cells that run horizontally. The `.` is a placeholder that represents no column.
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ .)
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(. ~ cyl)
+```
+
+### Ex 4
+Using faceted separates each `class` into subplots, so it makes it easier to examine individually by class. Using color keeps everything in the same plot, so it can help see relationships between the plotted values. With a larger dataset it may help to use faceted view because there may be too many values to put everything in one plot.
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+```
+
+### Ex 5
+`nrow` and `ncol` control the number of rows and columns for the subplot cells. `dir` controlls the direction (horizontal or vertical) of the cells.
+```{r}
+?facet_wrap
+```
+
+### Ex 6
+Having the variable more unique levels in the columns creates a visualization that is wider than it is long. This makes it easier to display and read on most screens.
+
+## 3.6.1
+
+### Ex 1
+- Line chart: `geom_smooth`
+- Boxplot: `geom_point`
+- Histogram: `geom_point`
+- Area chart: `geom_smooth`
+
+### Ex 2
+I predict the following code will plot points of `hwy` against `displ` and draw curves between points for each value of `drv`.
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
+  geom_point() + 
+  geom_smooth(se = FALSE)
+```
+
+### Ex 3
+`show.legend = FALSE` removes the labels telling what each color in the graph represents. Removing that argument causes the labels to show up again. It was used earlier in the chapter because we wanted the graph to be as large as possible to demonstrate the difference in colors, and the labels were not important.
+```{r}
+ggplot(data = mpg) +
+  geom_smooth(
+    mapping = aes(x = displ, y = hwy, color = drv),
+    show.legend = FALSE
+  )
+
+ggplot(data = mpg) +
+  geom_smooth(
+    mapping = aes(x = displ, y = hwy, color = drv)
+  )
+```
+
+### Ex 4
+The `se` argument tells whether or not to display the confidence interval around the curve.
+```{r}
+?geom_smooth
+```
+
+### Ex 5
+No, these two graphs will look the same. The first graph supplies the data and arguments to `ggplot` which is inferred by `geom_point` and `geom_smooth`. The second graph does not pass and arguments to `ggplot` but explicitly passes them to `geom_point` and `geom_smooth`.
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  geom_smooth()
+
+ggplot() + 
+  geom_point(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_smooth(data = mpg, mapping = aes(x = displ, y = hwy))
+```
+
+### Ex 6
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  geom_smooth(se = FALSE, show.legend = FALSE)
+
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  geom_smooth(mapping = aes(group = drv), se = FALSE, show.legend = FALSE)
+
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
+  geom_point() + 
+  geom_smooth(se = FALSE)
+
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = drv)) + 
+  geom_smooth(se = FALSE)
+
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = drv)) + 
+  geom_smooth(mapping = aes(linetype = drv), se = FALSE)
+
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, fill = drv)) + 
+  geom_point(shape = 21, size = 4, stroke = 3, color = "white")
+```
+
+## 3.9.1
+
+### Ex 2
+`labs()` is used to modify the axis, legend, and labels of a plot. It can be used to add titles, subtitles, captions, tags, and labels.
+```{r}
+?labs
+```
+

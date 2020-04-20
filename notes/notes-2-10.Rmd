@@ -1,0 +1,37 @@
+---
+title: "notes-2-10"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+
+MLBpayrolls %>%
+  mutate(difference = Payroll.2016 - Payroll.2011, pct_diff = difference/Payroll.2011) %>%
+  select(TEAM, difference, pct_diff) %>%
+  arrange(desc(pct_diff)) %>%
+  filter(pct_diff > 0)
+  #summarize( mean(difference), mean(pct_diff) )
+```
+
+```{r}
+MLBpayrolls %>%
+  mutate(jar_of = "pickles")
+```
+
+```{r}
+MLBpayrolls %>%
+  mutate(avg_team_payroll = rowMeans(MLBpayrolls[,-1], na.rm = TRUE)) %>%
+  select(TEAM, avg_team_payroll, 2:8)
+```
+
+```{r}
+MLBpayrolls %>%
+  mutate(Payroll.2011 = Payroll.2016)
+```
+
+

@@ -1,0 +1,198 @@
+---
+title: "Stacking Dataframes on Each Other Using 'Set Operations'"
+output: html_document
+---
+
+In the last lesson, we looked at how to "join" dataframes -- how to take common values in two dataframes and use those common values to line up the rows from those two dataframes side-by-side. We talked in terms of "left" and "right."
+
+Today we're going to talk about placing dataframes on top of one another. Instead of connecting rows based on matching values, this time we are going to need dataframes that have matching column names.
+
+
+
+_Functions in this tutorial_
+
+* intersect()
+* union()
+* settdiff()
+* union_all()
+
+Let's load our libraries, load our data and get started by taking a look at the data... 
+
+
+## Tidyverse and Base R Collide
+
+Some of the functions we are going to use today exist in both "base R" and in "tidyverse R"
+
+For example, here is the documentation for "intersect" function in base R...
+
+```{r}
+?base::intersect
+```
+
+... and here is the documentation for "intersect" in tidyverse R...
+
+```{r}
+?dplyr::intersect
+```
+
+
+Let's go ahead and load tidyverse so we have available to us the version of intersect that we want to use.
+
+```{r}
+library(tidyverse)
+```
+
+
+## Loading the data
+
+Do *one* of the three following things to load the data:
+
+1. If you already have the "causey_donors2019B" dataframe in your Global Environment, you do not need to do anything.
+
+2. If you've already downloaded the .RData file we used on Monday, but do not see it in your global environment you will need to do this (but replacing using the correct path to the location of the .RData file on your computer).
+
+```{r}
+load("~/Downloads/March2325.RData")
+```
+
+3. If you don't have access to the .RData file at all, you can run this to import the data directly from the NC Board of Elections site.
+
+```{r}
+
+#Mike Causey
+
+url <- "https://cf.ncsbe.gov/CFOrgLkup/ExportDetailResults/?ReportID=171963&Type=REC&Title=MIKE%20CAUSEY%20CAMPAIGN%20-%202019%20Year%20End%20Semi-Annual"
+
+#read_csv() does not do a great job here guessing the correct col_types, so we have to define them explicitly.
+
+causey_rcpts_2019B <- read_csv(url, 
+    col_types = cols(
+      `Account Abbr` = col_character(), 
+        City = col_character(), 
+      `Country Name` = col_character(), 
+        Date = col_date(format = "%m/%d/%Y"), 
+        Description = col_character(), 
+      `Employers Name` = col_character(), 
+        `Full Zip` = col_character(), 
+      `Outside US Postal Code` = col_character(), 
+        Profession = col_character(), 
+      Purpose = col_character(), 
+        State = col_character(), 
+      `Street 1` = col_character(), 
+        `Street 2` = col_character()),
+    skip = 1)
+
+#Finally, we should rename the columns to remove spaces and generally promote brevity.
+
+names(causey_rcpts_2019B) <- c("date","prior","donor","street1","street2","city","state","zip","country","postal","profession","employer","purpose","type","account","payment_form","description","amount","sum_to_date")
+
+
+#Dan Forest
+
+url <- "https://cf.ncsbe.gov/CFOrgLkup/ExportDetailResults/?ReportID=171903&Type=REC&Title=FRIENDS%20OF%20DAN%20FOREST%20-%202019%20Year%20End%20Semi-Annual"
+
+#read_csv() does not do a great job here guessing the correct col_types, so we have to define them explicitly.
+
+forest_rcpts_2019B <- read_csv(url, 
+    col_types = cols(
+      `Account Abbr` = col_character(), 
+        City = col_character(), 
+      `Country Name` = col_character(), 
+        Date = col_date(format = "%m/%d/%Y"), 
+        Description = col_character(), 
+      `Employers Name` = col_character(), 
+        `Full Zip` = col_character(), 
+      `Outside US Postal Code` = col_character(), 
+        Profession = col_character(), 
+      Purpose = col_character(), 
+        State = col_character(), 
+      `Street 1` = col_character(), 
+        `Street 2` = col_character()),
+    skip = 1)
+
+#Finally, we should rename the columns to remove spaces and generally promote brevity.
+
+names(forest_rcpts_2019B) <- c("date","prior","donor","street1","street2","city","state","zip","country","postal","profession","employer","purpose","type","account","payment_form","description","amount","sum_to_date")
+
+
+
+```
+
+
+## Making Donors, Not Donations
+
+```{r}
+causey_donors_2019B <- causey_rcpts_2019B %>% 
+  filter(donor != "Aggregated Individual Contribution") %>% 
+  distinct(donor, street1, street2, city, state, zip) %>% 
+  select(donor, street1, street2, city, state, zip) 
+
+forest_donors_2019B <- forest_rcpts_2019B %>% 
+  filter(donor != "Aggregated Individual Contribution") %>% 
+  distinct(donor, street1, street2, city, state, zip) %>% 
+  select(donor, street1, street2, city, state, zip) 
+
+```
+
+
+
+## What's our data?
+
+Let's take a look at the two dataframes we will start with to familiarize ourselves with the columns and rows in each.
+
+
+## Intersect
+
+Our first reporting question: *Did anyone give to both?*
+
+
+```{r}
+
+```
+
+## Union
+
+What if we wanted to make a list of anyone who has given to any candidate? 
+
+```{r}
+
+```
+
+
+## Setdiff
+Our reporting quesiton this time is to look at the differences between donors to the two candidates. 
+
+This gives us everyone who gave to Mike Causey, but NOT Dan Forest.
+
+```{r}
+
+
+```
+
+Show me everyone who gave to Dan Forest, but NOT Mike Causey.
+
+```{r}
+
+
+```
+
+
+## union_all
+
+Sometimes we want to just gently place one dataframe on top of the other. No pressing. Just stacking.
+
+```{r}
+
+```
+
+A union_all on donors is probably not what we want. One of the problems it would cause is that it would lead us to over count the number of donors. 
+
+But union_all would be useful if we were trying to determine the grand total of donation amounts to multiple candidates. Doing a "union_all" on the _donations_ dataframes makes a lot more sense.
+
+```{r}
+all_rcpts<- WHAT GOES HERE? 
+
+AND HOW DO WE THEN FIND THE SUM OF THE STACKED AMOUNT COLUMNS. 
+```
+
+So how much was given to both Dan Forest and Mike Causey in the last six months of 2019?

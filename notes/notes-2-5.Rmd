@@ -1,0 +1,121 @@
+---
+title: "Class Notes Feb. 5, 2020"
+output: html_notebook
+---
+
+Learning R is like learning a new spoken language. We just need to learn the words and rules.
+
+These are the three key verbs/functions we'll be using this semester:
+
+- `arrange`
+- `filter`
+- `select`
+
+Journalists want to find things that are unexpected (not normal). All three of these functions help us do that. `arrange` shows us the extremes of our data, `filter` shows us rows that meet certain criters, and `select` shows us only certain columns.
+
+We'll be using the same MLBpayrolls dataframe for the next few assignments.
+
+## Learning arrange
+
+The `arrange` function sorts our dataframe (ascending or descending) by specific columns.
+
+`arrange` takes the following arguments:
+
+1. The dataframe we want to arrange
+2. The column we want to sort by
+    - To sort in descending order, you must wrap the column name in `desc()`
+3. (optional) Any additional columns we want to sort by
+    - Additional sort columns are used to break ties in previous columns
+    
+```{r}
+# first we need to load tidyverse to gain access to the arrange function
+library(tidyverse)
+
+# here we arrange MLBpayrolls by the 2016 payroll in ascending order, and break ties with 2004 payroll in descending order
+arrange(MLBpayrolls, Payroll.2016, desc(Payroll.2004))
+```
+
+Tips:
+
+- You need to load tidyverse only once everytime you reload the RStudio application
+- If there are spaces in your arguments, you need to wrap them in tick marks ( \` ).
+  - Eg. \`Payroll 2016\`
+- If you use single quote marks ( ' ) instead of tick marks, you may get an "unexpected string" error
+- If you have Payroll.2016 (with a dot) that's ok
+  - At the top of HW6 when we load the Excel spreadsheet, the `.name_repair = "universal"` argument replaces all the spaces with dots
+
+
+## Learning filter
+
+`filter` gives us only the rows that meet certain criteria.
+
+`filter` takes the following arguments:
+
+1. The dataframe we want to filter
+2. The criteria we want to filter by
+3. (optional) Any additional criteria we want to filter by
+
+```{r}
+# here we filter MLBpayrolls to show only teams (rows) that paid more than 150,000,000 in 2016
+filter(MLBpayrolls, Payroll.2016 > 150000000)
+
+# here we filter MLBpayrolls to show only teams that paid more in 2016 than the average payroll in 2016
+filter(MLBpayrolls, Payroll.2016 > mean(MLBpayrolls$Payroll.2016))
+
+# here we filter MLBpayrolls to show only teams that paid more in 2016 than the average payroll in 2016 AND paid more in 2010 than the average payroll in 2016
+filter(MLBpayrolls, Payroll.2016 > mean(MLBpayrolls$Payroll.2016), Payroll.2010 > mean(MLBpayrolls$Payroll.2016))
+
+# here we filter MLBpayrolls to show only teams that paid more in 2016 than the average payroll in 2016 OR paid more in 2010 than the average payroll in 2016
+filter(MLBpayrolls, Payroll.2016 > mean(MLBpayrolls$Payroll.2016) | Payroll.2010 > mean(MLBpayrolls$Payroll.2016))
+```
+
+Tips:
+
+1. Separating criteria by commas means "AND"
+2. Separating criteria by pipes ( | ) means "OR"
+3. You can see logical operators here: http://learn.r-journalism.com/en/wrangling/dplyr/dplyr/#logical-operators
+
+### Eg. Get all the information for just the teams from New York.
+
+```{r}
+# here we filter MLBpayrolls to show only teams that are called "New York Mets" and "New York Yankees"
+filter(MLBpayrolls, TEAM %in% c("New York Mets","New York Yankees"))
+# same as above
+filter(MLBpayrolls, TEAM == "New York Mets" | TEAM == "New York Yankees")
+# same as above
+NYTeams <- c("New York Mets","New York Yankees")
+filter(MLBpayrolls, TEAM %in% NYTeams)
+```
+
+When we run multiple commands in a single chunk (like above), only the results of last one will be shown in the R Markdown file. Make sure that the last command gives the results that you want others to see.
+
+## Learning select
+
+The `select` function gives us the only specific columns.
+
+We can use a pipe `%>%` to send results from one command to another. The pipe goes between commands and says "and then do this".
+
+```{r}
+# here we take MLBpayrolls 
+# then we filter it to show only teams that paid more in 2016 than the average payroll in 2016
+# then we take our filter result and select only the TEAM and Payroll 2016 columns to be shown
+# then we take our select result and arrange it in descending order by Payroll 2016
+MLBpayrolls %>%
+filter(Payroll.2016 > mean(MLBpayrolls$Payroll.2016)) %>%
+select(TEAM, Payroll.2016) %>%
+arrange(desc(Payroll.2016))
+```
+
+Tips:
+
+- `select` removes columns, so the order of your command pipeline matters
+  - If you `select` to remove a column, you won't be able to use `arrange` and sort by that removed column later
+  
+Feedback on readings and HW:
+- Students think it will be more useful to have R readings, then go over R in class, and then do homework using what we've learned
+- Ryan doesn't want us to spend more than 3 hours on a homework assignment
+
+Homework Info:
+- In the `read_excel` function at the top of the homework, the first argument is the path to the Excel file. The `..` at the beginning of the path tells R to look up one directory/folder in our file system.
+  - If you don't have a `data` folder in the outside of your R folder, you need to change this path
+- In the `read_excel` function at the top of the homework, the `.name_repair = "universal"` argument replaces all the spaces with dots

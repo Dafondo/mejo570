@@ -1,0 +1,224 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Load the janitor and tidyverse packages
+```{r}
+#install.packages("janitor")
+library(janitor)
+#install.packages("tidyverse")
+library(tidyverse)
+library(lubridate)
+```
+
+### Get campaign finance data
+#### This data includes 2020 Q1 and 2019 semi-annual reports
+```{r}
+
+url1 <- "https://cf.ncsbe.gov/CFOrgLkup/ExportDetailResults/?ReportID=173751&Type=REC&Title=COMMITTEE%20TO%20ELECT%20KIM%20COLEY%20-%202020%20First%20Quarter"
+
+url2 <- "https://cf.ncsbe.gov/CFOrgLkup/ExportDetailResults/?ReportID=170343&Type=REC&Title=COMMITTEE%20TO%20ELECT%20KIM%20COLEY%20-%202019%20Organizational"
+
+url3 <- "https://cf.ncsbe.gov/CFOrgLkup/ExportDetailResults/?ReportID=171712&Type=REC&Title=COMMITTEE%20TO%20ELECT%20KIM%20COLEY%20-%202019%20Year%20End%20Semi-Annual"
+
+coley_rcpts_2020_q1 <- read_csv(url1, 
+    col_types = cols(
+      `Account Abbr` = col_character(), 
+        City = col_character(), 
+      `Country Name` = col_character(), 
+        Date = col_date(format = "%m/%d/%Y"), 
+        Description = col_character(), 
+      `Employers Name` = col_character(), 
+        `Full Zip` = col_character(), 
+      `Outside US Postal Code` = col_character(), 
+        Profession = col_character(), 
+      Purpose = col_character(), 
+        State = col_character(), 
+      `Street 1` = col_character(), 
+        `Street 2` = col_character()),
+    skip = 1)
+
+coley_rcpts_2019_1 <- read_csv(url2, 
+    col_types = cols(
+      `Account Abbr` = col_character(), 
+        City = col_character(), 
+      `Country Name` = col_character(), 
+        Date = col_date(format = "%m/%d/%Y"), 
+        Description = col_character(), 
+      `Employers Name` = col_character(), 
+        `Full Zip` = col_character(), 
+      `Outside US Postal Code` = col_character(), 
+        Profession = col_character(), 
+      Purpose = col_character(), 
+        State = col_character(), 
+      `Street 1` = col_character(), 
+        `Street 2` = col_character()),
+    skip = 1)
+
+coley_rcpts_2019_2 <- read_csv(url3, 
+    col_types = cols(
+      `Account Abbr` = col_character(), 
+        City = col_character(), 
+      `Country Name` = col_character(), 
+        Date = col_date(format = "%m/%d/%Y"), 
+        Description = col_character(), 
+      `Employers Name` = col_character(), 
+        `Full Zip` = col_character(), 
+      `Outside US Postal Code` = col_character(), 
+        Profession = col_character(), 
+      Purpose = col_character(), 
+        State = col_character(), 
+      `Street 1` = col_character(), 
+        `Street 2` = col_character()),
+    skip = 1)
+
+# Combine all finance reports together
+coley_rcpts_2020 = union_all(coley_rcpts_2020_q1, coley_rcpts_2019_1, coley_rcpts_2019_2)
+
+#Finally, we should rename the columns to remove spaces and generally promote brevity.
+names(coley_rcpts_2020) <- c("date","prior","donor","street1","street2","city","state","zip","country","postal","profession","employer","purpose","type","account","payment_form","description","amount","sum_to_date")
+
+```
+
+### Stats grouped by month
+```{r}
+coley_rcpts_2020_by_month <- coley_rcpts_2020 %>%
+  # uncomment the line below to filter out Individual Aggregated Contribution donors
+  #filter(donor != "Individual Aggregated Contribution") %>%
+  # group by months here, use the month label string instead of numbers, and don't abbreviate
+  group_by(Month=month(date, label=TRUE, abbr=FALSE)) %>%
+  # summarise our data here
+  summarise(
+    # sum the dollar amount of donations and round to nearest cent
+    TotalAmount = format(round(sum(amount), 2), nsmall = 2), 
+    # get the number of distinct donors
+    NumberOfDonors = n_distinct(donor),
+    # calculate the mean dollar amount and round to nearest cent
+    AverageDonation = format(round(mean(amount), 2), nsmall = 2), 
+    # calculate the median dollar amount and round to nearest cent
+    MedianDonation = format(round(median(amount), 2), nsmall = 2), 
+    # calculate the percent of total dollar amount that each month makes up
+    PercentOfTotal = sum(amount)/sum(coley_rcpts_2020$amount)
+  ) %>%
+  # make the month values into the row headers
+  remove_rownames %>% column_to_rownames(var="Month") %>%
+  # rotate the dataframe by turning it into a matrix, transposing, and converting back into a dataframe
+  as.matrix() %>% t() %>% as.data.frame()
+
+coley_rcpts_2020_by_month
+```
+
+### Stats grouped by weekday
+```{r}
+coley_rcpts_2020_by_weekday <- coley_rcpts_2020 %>%
+  # uncomment the line below to filter out Individual Aggregated Contribution donors
+  #filter(donor != "Individual Aggregated Contribution") %>%
+  # group by weekday here
+  group_by(Weekday=weekdays(date)) %>%
+  # summarise our data here
+  summarise(
+    # sum the dollar amount of donations and round to nearest cent
+    TotalAmount = format(round(sum(amount), 2), nsmall = 2), 
+    # get the number of distinct donors
+    NumberOfDonors = n_distinct(donor),
+    # calculate the mean dollar amount and round to nearest cent
+    AverageDonation = format(round(mean(amount), 2), nsmall = 2), 
+    # calculate the median dollar amount and round to nearest cent
+    MedianDonation = format(round(median(amount), 2), nsmall = 2), 
+    # calculate the percent of total dollar amount that each weekday makes up
+    PercentOfTotal = sum(amount)/sum(coley_rcpts_2020$amount)
+  ) %>%
+  # make the weekday values into the row headers
+  remove_rownames %>% column_to_rownames(var="Weekday") %>%
+  # rotate the dataframe by turning it into a matrix, transposing, and converting back into a dataframe
+  as.matrix() %>% t() %>% as.data.frame()
+
+coley_rcpts_2020_by_weekday
+```
+
+### Stats grouped by zipcode
+```{r}
+census_data <- read_csv("nc-zip-code-population.csv",
+                        col_types = cols(zip = col_character()))
+
+# join receipts with census data
+coley_rcpts_2020_with_income <- left_join(coley_rcpts_2020, census_data)
+
+coley_rcpts_2020_by_zipcode <- coley_rcpts_2020_with_income %>%
+  # uncomment the line below to filter out Individual Aggregated Contribution donors
+  #filter(donor != "Individual Aggregated Contribution") %>%
+  mutate(zip = str_sub(zip, 1, 5)) %>%
+  # replace N/A values of zip with "Unknown"
+  replace_na(list(zip="Unknown")) %>%
+  # group by weekday here
+  group_by(Zipcode=zip) %>%
+  # summarise our data here
+  summarise(
+    # sum the dollar amount of donations and round to nearest cent
+    TotalAmount = format(round(sum(amount), 2), nsmall = 2), 
+    # get the number of distinct donors
+    NumberOfDonors = n_distinct(donor),
+    # calculate the mean dollar amount and round to nearest cent
+    AverageDonation = format(round(mean(amount), 2), nsmall = 2), 
+    # calculate the median dollar amount and round to nearest cent
+    MedianDonation = format(round(median(amount), 2), nsmall = 2), 
+    # calculate the percent of total dollar amount that each weekday makes up
+    PercentOfTotal = sum(amount)/sum(coley_rcpts_2020$amount),
+    # calculate the donors per capita for Wake county
+    DonorsPerCapita = n_distinct(donor)/ first(population),
+    # calculate the dollar amount per capita for Wake county,
+    DollarsPerCapita = sum(amount)/ first(population),
+    # calculate the median donor amount over the median income
+    MedianDonationOverIncome = median(amount)/ first(median_income)
+  ) %>%
+  # make the weekday values into the row headers
+  remove_rownames %>% column_to_rownames(var="Zipcode") %>%
+  # rotate the dataframe by turning it into a matrix, transposing, and converting back into a dataframe
+  as.matrix() %>% t() %>% as.data.frame()
+
+coley_rcpts_2020_by_zipcode
+```
+
+### Reporting Question
+#### I noticed that a large amount of donations came from Kim Coley herself as in-kind donations. I'm curious about how well campaigns turn out depending on how much the candidate invests in themselves. Is there a correlation between how much money a candidate invests in their own campaign and how much money others invest in their campaign? Do candidates who invest a certain amount into their campaign have a higher chance of winning?
+
+### Visualization 1
+#### Here we're visualizing the difference in total amount donated based on payment type.
+```{r}
+coley_rcpts_2020 %>%
+  group_by(payment_form) %>%
+  summarise(TotalAmount = round(sum(amount), 2)) %>%
+  # plot total amount by payment form
+  ggplot(mapping = aes(x = payment_form, y = TotalAmount)) +
+  geom_bar(stat = "identity") +
+  # label dollar amounts for each bar
+  geom_text(aes(label = format(round(TotalAmount, 2), nsmall=2)), vjust = -0.3, size = 3.5)+
+  theme_minimal()
+```
+
+### Visualization 2
+#### Here we're visualizing the payment amounts against the median salary for the donor's zipcode
+```{r}
+# we define this function for formating axis labels to whole dollar amounts
+scaleFUN <- function(x) sprintf("%.0f", x)
+
+coley_rcpts_2020_with_income %>%
+  # remove rows without median income values available
+  drop_na(median_income) %>%
+  group_by(median_income) %>%
+  ggplot(mapping = aes(x = median_income, y = amount)) + 
+  geom_point(size=3) + 
+  geom_smooth() +
+  # format axis labels to whole dollar amounts
+  scale_y_continuous(labels=scaleFUN) +
+  scale_x_continuous(labels=scaleFUN)
+```
+  
+  

@@ -1,0 +1,70 @@
+COVER
+SBoE ID,Committee Name,Street 1,Street 2,City,State,Zip Code,Country,Postal Code,Committee Type,Report Type,Fund Type,Fund Name,Date From,Date To,Date Filed
+STA-ATZ047-C-001,COMMITTEE TO ELECT KIM COLEY,PO BOX 97275,,RALEIGH,NC,27624,United States,,Candidate Committee,2019 Year End Semi-Annual,,,12/04/2019,12/31/2019,01/29/2020
+
+OFFICERS
+Type,Name,Address,Phone
+Treasurer,COLLIN MCMICHAEL,"PO BOX 97275, RALEIGH, NC, 27624",
+Candidate,KIM COLEY,"PO BOX 97275, RALEIGH, NC, 27624",
+
+ACCOUNTS
+Code,Type,Purpose,Name,Address,Begin Balance,End Balance
+01,Checking,CHECKING,BB&T,"6659 FALLS OF NEUSE RD, RALEIGH, NC 27615",$0.00,$0.00
+
+SUMMARY
+Section,Period,Cycle
+Cash on Hand at Beginning,15724.6000,0.0000
+RECEIPTS,0.0000,0.0000
+Aggregated Contributions from Individuals,25.0000,25.0000
+Contributions from Individuals,0.0000,0.0000
+Political Party Committees,0.0000,0.0000
+Other Political Committees (such as PACs),0.0000,0.0000
+Loan Proceeds,0.0000,0.0000
+Refunds/Reimbursements To the Committee,0.0000,0.0000
+Interest on Bank Accounts,0.0000,0.0000
+Contributions from Not-For-Profit Organizations,0.0000,0.0000
+Outside Sources of Income,0.0000,15724.6000
+Legal Expense Fund - Other Sources,0.0000,0.0000
+Exempt Purchase Price Sales,0.0000,0.0000
+Total Receipts,25.0000,15749.6000
+EXPENDITURES,0.0000,0.0000
+Operating Expenditures,0.0000,0.0000
+Contributions to Candidates/Political Committees,0.0000,0.0000
+Coordinated Party Expenditures,0.0000,0.0000
+Aggregated Non-Media Expenditures,1.3000,1.3000
+Loan Repayments,0.0000,0.0000
+Refunds/Reimbursements From the Committee,0.0000,0.0000
+In-Kind Contributions,0.0000,0.0000
+Total Expenditures,1.3000,1.3000
+Cash on Hand at End of Reporting Period,15748.3000,15748.3000
+ADDITIONAL INFORMATION,0.0000,0.0000
+Non-Monetary Gifts Given to Other Committees,0.0000,0.0000
+Outstanding Loans (incl. ones from other campaigns),41000.0000,0.0000
+Debts and Obligations owed BY the Committee,0.0000,0.0000
+Debts and Obligations owed TO the Committee,0.0000,0.0000
+Account Transfers Within the Committee,0.0000,0.0000
+Administrative Support,0.0000,0.0000
+Forgiven Loans,0.0000,0.0000
+48-Hour Notice Reports Sum,0.0000,0.0000
+Contributions to be Refunded,0.0000,0.0000
+
+RECEIPTS
+Date,Is Prior,Name,Street 1,Street 2,City,State,Full Zip,Country Name,Outside US Postal Code,Profession,Employers Name,Purpose,Receipt Type Desc,Account Abbr,Form Of Payment Desc,Description,Amount,Sum To Date
+12/26/2019,,Aggregated Individual Contribution,,,,,,,,,,,Individual Contribution,01,Credit Card,,25.0000,25.0000
+
+EXPENDITURES
+Date,Name,Street 1,Street 2,City,State,Full Zip,Country Name,Outside US Postal Code,Profession,Employer Name,Purpose Type Code,Purpose,Candidate,Office Sought,Declaration,Amount,Expenditure Type Desc,Account Abbr,Form Of Payment Desc,Description,Amount1,Sum To Date
+12/31/2019,Aggregated Non-Media Expense,,,,,,,,,,O,MERCHANT FEES,,,,,Operating Expense,01,Draft,,1.3000,1.3000
+
+OUTSTANDING LOANS
+Date,Name,Street 1,Street 2,City,State,Zip Code,Country,Postal Code,Profession,Employer''s Name/Specific Field,Original Date,Original Amount,Remaining Balance
+02/20/2018,KIM COLEY,PO BOX 97275,,RALEIGH,NC,27624,United States,,CONTRACTOR,SELF-EMPLOYED,02/20/2018,1000.0000,1000.0000
+07/05/2018,KIM COLEY,PO BOX 97275,,RALEIGH,NC,27624,United States,,CONTRACTOR,SELF-EMPLOYED,07/05/2018,5000.0000,5000.0000
+08/15/2018,KIM COLEY,PO BOX 97275,,RALEIGH,NC,27624,United States,,CONTRACTOR,SELF-EMPLOYED,08/15/2018,5000.0000,5000.0000
+08/15/2018,KIM COLEY,PO BOX 97275,,RALEIGH,NC,27624,United States,,CONTRACTOR,SELF-EMPLOYED,08/15/2018,5000.0000,5000.0000
+08/20/2018,KIM COLEY,PO BOX 97275,,RALEIGH,NC,27624,United States,,CONTRACTOR,SELF-EMPLOYED,08/20/2018,5000.0000,5000.0000
+08/24/2018,KIM COLEY,PO BOX 97275,,RALEIGH,NC,27624,United States,,CONTRACTOR,SELF-EMPLOYED,08/24/2018,5000.0000,5000.0000
+08/27/2018,KIM COLEY,PO BOX 97275,,RALEIGH,NC,27624,United States,,CONTRACTOR,SELF-EMPLOYED,08/27/2018,5000.0000,5000.0000
+08/29/2018,KIM COLEY,PO BOX 97275,,RALEIGH,NC,27624,United States,,CONTRACTOR,SELF-EMPLOYED,08/29/2018,5000.0000,5000.0000
+09/05/2018,KIM COLEY,PO BOX 97275,,RALEIGH,NC,27624,United States,,CONTRACTOR,SELF-EMPLOYED,09/05/2018,5000.0000,5000.0000
+
