@@ -106,7 +106,7 @@ class ReceiptsSpider(scrapy.Spider):
 
                 # Call the second parse function and pass some meta attributes
                 yield scrapy.Request(reportUrl, callback=self.parse_report_summary,
-                                     meta={'fileName': self.reportToFileName(report['ReportType']), 'basePath': 'data/%s/%s/%s/' % (self.projectName, response.meta.get('district'), response.meta.get('lastname'))})
+                                     meta={'fileName': self.reportToFileName(report['ReportType']), 'basePath': 'data/%s/%s/%s/' % (self.projectName, response.meta.get('district'), str.lower(response.meta.get('lastname')))})
 
     # Second parse function
     # Parses the Report summary pages for the Detailed Receipts row and grabs the view link

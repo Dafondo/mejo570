@@ -1,0 +1,140 @@
+---
+title: "final-story"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Load the janitor and tidyverse packages
+```{r}
+#install.packages("janitor")
+library(janitor)
+#install.packages("tidyverse")
+library(tidyverse)
+library(lubridate)
+```
+
+
+### Reporting Question
+#### I noticed that a large amount of donations came from Kim Coley herself as in-kind donations. I'm curious about how well campaigns turn out depending on how much the candidate invests in themselves. Is there a correlation between how much money a candidate invests in their own campaign and how much money others invest in their campaign? Do candidates who invest a certain amount into their campaign have a higher chance of winning?
+
+### Get campaign finance data
+#### This data includes all 2018 quarterly reports for 2018 NC Senate candidates where available
+```{r}
+
+# Reads in candidate data
+candidateData <- read_csv("../../python/senate2018/urls.csv")
+
+receiptsAll <- list()
+
+# Given a district number and last name, consolidates the quarterly receipts for a candidate
+# Returns a dataframe of receipts from 2018
+consolidateReceipts <- function(district, lastname) {
+  # Creates an empty dataframe with column names
+  rcpts_complete <- data.frame(matrix(vector(), 0, 19,
+                dimnames=list(c(), c("Date", "Is Prior", "Name", "Street 1", "Street 2", "City", "State", "Full Zip", 
+                                     "Country Name", "Outside US Postal Code", "Profession", "Employers Name", "Purpose", 
+                                     "Receipt Type Desc", "Account Abbr", "Form Of Payment Desc", "Description", "Amount", 
+                                     "Sum To Date"))),
+                stringsAsFactors=F)
+  
+    # Constructs CSV paths from district and last name
+    urls <- c(sprintf("../../python/data/senate2018/%s/%s/q1.csv", district, lastname),
+              sprintf("../../python/data/senate2018/%s/%s/q2.csv", district, lastname),
+              sprintf("../../python/data/senate2018/%s/%s/q3.csv", district, lastname),
+              sprintf("../../python/data/senate2018/%s/%s/q4.csv", district, lastname))
+    
+    # Tries to open each quarterly receipt CSV and unions it to a running dataframe
+    for(url in urls){
+      # If the file doesn't exist, skip it
+      if (file.exists(url)) {
+        temp <- read_csv(url, 
+          col_types = cols(
+            `Account Abbr` = col_character(), 
+              City = col_character(), 
+            `Country Name` = col_character(), 
+              Date = col_date(format = "%m/%d/%Y"), 
+              Description = col_character(), 
+            `Employers Name` = col_character(), 
+              `Full Zip` = col_character(), 
+            `Outside US Postal Code` = col_character(), 
+              Profession = col_character(), 
+            Purpose = col_character(), 
+              State = col_character(), 
+            `Street 1` = col_character(), 
+              `Street 2` = col_character()),
+          skip = 1)
+        
+        rcpts_complete <- union_all(rcpts_complete, temp)
+      }
+    }
+    
+    #Finally, we should rename the columns to remove spaces and generally promote brevity.
+    names(rcpts_complete) <- c("date","prior","donor","street1","street2","city","state","zip","country","postal","profession","employer","purpose","type","account","payment_form","description","amount","sum_to_date")
+    
+    return(rcpts_complete)
+}
+
+#candidateData <- candidateData %>%
+#  mutate(receipts2018 = list(consolidateReceipts(district, tolower(lastname))))
+
+# For each candidate, consolidate their quarterly receipts
+for (row in 1:nrow(candidateData)) {
+    district <- candidateData[row, "district"]
+    lastname <- candidateData[row, "lastname"] %>% tolower()
+    
+    rcpts_complete <- consolidateReceipts(district, lastname)
+
+    receiptsAll[[row]] <- rcpts_complete
+}
+
+# Update the candidate data with their receipts as lists
+candidateData$receipts2018 <- receiptsAll
+
+```
+
+### Gather self funding data
+#### Searches through each receipt data frame for matches with the candidate's name
+```{r}
+
+# Given a dataframe of receipts, a last name, and a first name/aliases, calculates the amount of self funding a candidate received
+# Returns the total amount received through self funding
+calculateSelfFunding <- function(receipts, lastname, firstnames) {
+  # Regex pattern that matches any instance where the candidate's first name/aliases precedes their last name, with anything in between and at the beginning and end of strings
+  pattern <- sprintf(".*%s.*%s.*", paste(firstnames, collapse = "|"), lastname)
+  
+  # Filters by using grepping with the above pattern on the donors
+  receipts <- receipts %>%
+    filter(grepl(pattern, c(receipts2018.donor), ignore.case=TRUE))
+  
+  # Uncomment this print statement to check for discrepancy in resulting list of self-funded receipts
+  # print(receipts)
+  
+  total <- sum(receipts$receipts2018.amount)
+  return(total)
+}
+
+selfFundedAll <- list()
+
+# For each candidate, calculate their self-funded total
+for (row in 1:nrow(candidateData)) {
+    district <- candidateData[row, "district"]
+    lastname <- candidateData[row, "lastname"] %>% tolower()
+    firstnames <- c(candidateData[row, "firstname"] %>% tolower())
+    # <- append(strsplit(candidateData[row, "aliases"], "/"), candidateData[row, "firstname"])
+    receipts <- candidateData[row, "receipts2018"]
+    receipts <- do.call(data.frame, receipts)
+    
+    selfFundedAmt <- calculateSelfFunding(receipts, lastname, firstnames)
+
+    selfFundedAll[[row]] <- selfFundedAmt
+}
+
+# Update the candidate data with their self-funded totals
+candidateData$selfFundedAmt <- selfFundedAll
+```
+
