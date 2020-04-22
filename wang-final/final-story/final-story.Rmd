@@ -27,7 +27,7 @@ library(lubridate)
 ```{r}
 
 # Reads in candidate data
-candidateData <- read_csv("../../python/senate2018/urls.csv")
+candidateData <- read_csv("../python/senate2018/urls.csv")
 
 receiptsAll <- list()
 
@@ -43,10 +43,10 @@ consolidateReceipts <- function(district, lastname) {
                 stringsAsFactors=F)
   
     # Constructs CSV paths from district and last name
-    urls <- c(sprintf("../../python/data/senate2018/%s/%s/q1.csv", district, lastname),
-              sprintf("../../python/data/senate2018/%s/%s/q2.csv", district, lastname),
-              sprintf("../../python/data/senate2018/%s/%s/q3.csv", district, lastname),
-              sprintf("../../python/data/senate2018/%s/%s/q4.csv", district, lastname))
+    urls <- c(sprintf("../python/data/senate2018/%s/%s/q1.csv", district, lastname),
+              sprintf("../python/data/senate2018/%s/%s/q2.csv", district, lastname),
+              sprintf("../python/data/senate2018/%s/%s/q3.csv", district, lastname),
+              sprintf("../python/data/senate2018/%s/%s/q4.csv", district, lastname))
     
     # Tries to open each quarterly receipt CSV and unions it to a running dataframe
     for(url in urls){
@@ -439,6 +439,9 @@ candidateDataEarlyClean %>%
   filter(win == 1) %>%
   ggplot(mapping = aes(x = earlySelfFundedRelative, y = margin)) + 
   geom_point(size=3) + 
+  ggtitle("Early Self Funding vs Margin of Victory") +
+  xlab("Relative Early Self Funding") + 
+  ylab("Margin of Victory (percentage)") +
   geom_smooth()
 ```
 
@@ -557,5 +560,8 @@ candidateDataEarlyClean %>%
   filter(win == 1) %>%
   ggplot(mapping = aes(x = earlySelfFundedRelative, y = margin)) + 
   geom_point(size=3) + 
+  ggtitle("Early Close Funding vs Margin of Victory") +
+  xlab("Relative Close Self Funding") + 
+  ylab("Margin of Victory (percentage)") +
   geom_smooth()
 ```
