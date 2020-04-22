@@ -97,7 +97,7 @@ candidateData$receipts2018 <- receiptsAll
 
 ```
 
-### Gather self funding data
+### Calculate self funding
 #### Searches through each receipt data frame for matches with the candidate's name
 ```{r}
 
@@ -118,9 +118,239 @@ calculateSelfFunding <- function(receipts, lastname, firstnames) {
   return(total)
 }
 
-selfFundedAll <- list()
+selfFundedAll <- c()
 
 # For each candidate, calculate their self-funded total
+for (row in 1:nrow(candidateData)) {
+    district <- candidateData[row, "district"]
+    lastname <- candidateData[row, "lastname"] %>% tolower()
+    firstnames <- c(candidateData[row, "firstname"] %>% tolower())
+    aliases <- candidateData[row, "aliases"]
+    if (!(is.na(aliases) || aliases == "") && typeof(aliases) == "character") {
+      firstnames <- append(firstnames, strsplit(candidateData[row, "aliases"], "/"))
+    }
+    receipts <- candidateData[row, "receipts2018"]
+    receipts <- do.call(data.frame, receipts)
+    
+    selfFundedAmt <- calculateSelfFunding(receipts, lastname, firstnames)
+
+    selfFundedAll <- append(selfFundedAll, selfFundedAmt)
+}
+
+# Update the candidate data with their self-funded totals
+candidateData$selfFundedAmt <- selfFundedAll
+
+```
+
+### Calculate relative self funding compared to opponent
+#### For candidate, we'll get the relative funding compared to their district opponent in the other party
+```{r}
+
+candidateDataNaN <- candidateData %>%
+  group_by(district) %>%
+  mutate(selfFundedTotal = sum(selfFundedAmt), selfFundedRelative = selfFundedAmt / (selfFundedTotal)) 
+
+candidateDataClean <- candidateDataNaN %>%
+  mutate(selfFundedRelative = if(!is.finite(selfFundedRelative)) 0.5 else selfFundedRelative)
+
+```
+
+### Calculate the percentage of campaigns won by the highest self funder
+```{r}
+nrow(candidateDataClean %>%
+  filter(win == 1, selfFundedRelative > 0.5))
+
+nrow(candidateDataClean %>%
+  filter(win == 1, selfFundedRelative < 0.5))
+```
+
+
+### Plot relative self funding vs margin of victory for winners
+```{r}
+
+candidateDataClean %>%
+  filter(win == 1) %>%
+  ggplot(mapping = aes(x = selfFundedRelative, y = margin, size = selfFundedAmt)) + 
+  geom_point() +
+  ggtitle("Self Funding vs Margin of Victory") +
+  xlab("Relative Self Funding") + 
+  ylab("Margin of Victory (percentage)") +
+  labs(
+    size = "Self Funding ($)"
+  ) +
+  geom_smooth()
+
+candidateDataClean %>%
+  filter(win == 1, selfFundedTotal > 1000) %>%
+  ggplot(mapping = aes(x = selfFundedRelative, y = margin, size = selfFundedAmt)) + 
+  geom_point() + 
+  ggtitle("Self Funding vs Margin of Victory") +
+  xlab("Relative Self Funding") + 
+  ylab("Margin of Victory (percentage)") +
+  labs(
+    size = "Self Funding ($)"
+  ) +
+  geom_smooth()
+
+```
+
+### Remove all races where neither party self funded
+```{r}
+
+candidateDataNaN %>%
+  filter(win == 1, is.finite(selfFundedRelative)) %>%
+  ggplot(mapping = aes(x = selfFundedRelative, y = margin, size = selfFundedAmt)) + 
+  geom_point() + 
+  ggtitle("Self Funding vs Margin of Victory") +
+  xlab("Relative Self Funding") + 
+  ylab("Margin of Victory (percentage)") +
+  labs(
+    size = "Self Funding ($)"
+  ) +
+  geom_smooth()
+
+cor(candidateDataClean$selfFundedRelative, candidateDataClean$margin)
+
+```
+
+### Gather close funding data
+#### Get data donated from family and family businesses
+```{r}
+
+candidateDataClose <- candidateData
+
+# Given a dataframe of receipts, a last name, and a first name/aliases, calculates the amount of self funding a candidate received
+# Returns the total amount received through self funding
+calculateCloseFunding <- function(receipts, lastname) {
+  # Regex pattern that matches any instance where the candidate's first name/aliases precedes their last name, with anything in between and at the beginning and end of strings
+  pattern <- sprintf(".*%s.*", lastname)
+  
+  # Filters by using grepping with the above pattern on the donors
+  receipts <- receipts[ grepl(pattern, receipts$receipts2018.donor, ignore.case=TRUE) | grepl(pattern, receipts$receipts2018.employer, ignore.case=TRUE), ]
+  
+  # Uncomment this print statement to check for discrepancy in resulting list of self-funded receipts
+  # print(receipts)
+  
+  total <- sum(receipts$receipts2018.amount)
+  return(total)
+}
+
+closeFundedAll <- c()
+
+# For each candidate, calculate their self-funded total
+for (row in 1:nrow(candidateData)) {
+    district <- candidateData[row, "district"]
+    lastname <- candidateData[row, "lastname"] %>% tolower()
+    receipts <- candidateData[row, "receipts2018"]
+    receipts <- do.call(data.frame, receipts)
+    
+    closeFundedAmt <- calculateCloseFunding(receipts, lastname)
+
+    closeFundedAll <- append(closeFundedAll, closeFundedAmt)
+}
+
+# Update the candidate data with their self-funded totals
+candidateDataClose$closeFundedAmt <- closeFundedAll
+
+candidateDataClose$closeFundedAmt
+
+```
+
+### Calculate relative close funding compared to opponent
+```{r}
+
+candidateDataCloseNaN <- candidateDataClose %>%
+  group_by(district) %>%
+  mutate(closeFundedTotal = sum(closeFundedAmt), closeFundedRelative = closeFundedAmt / (closeFundedTotal)) 
+
+candidateDataCloseClean <- candidateDataCloseNaN %>%
+  mutate(closeFundedRelative = if(!is.finite(closeFundedRelative)) 0.5 else closeFundedRelative)
+
+```
+
+### Calculate the percentage of campaigns won by the highest close funder
+```{r}
+nrow(candidateDataCloseClean %>%
+  filter(win == 1, closeFundedRelative > 0.5))
+
+nrow(candidateDataCloseClean %>%
+  filter(win == 1, closeFundedRelative < 0.5))
+```
+
+
+### Plot relative funding vs margin of victory for winners
+```{r}
+
+candidateDataCloseClean %>%
+  filter(win == 1) %>%
+  ggplot(mapping = aes(x = closeFundedRelative, y = margin, size = closeFundedAmt)) + 
+  geom_point() + 
+  ggtitle("Close Funding vs Margin of Victory") +
+  xlab("Relative Close Funding") + 
+  ylab("Margin of Victory (percentage)") +
+  labs(
+    size = "Close Funding ($)"
+  ) +
+  geom_smooth()
+
+candidateDataCloseClean %>%
+  filter(win == 1, closeFundedTotal > 1000) %>%
+  ggplot(mapping = aes(x = closeFundedRelative, y = margin, size = closeFundedAmt)) + 
+  geom_point() + 
+  ggtitle("Close Funding vs Margin of Victory") +
+  xlab("Relative Close Funding") + 
+  ylab("Margin of Victory (percentage)") +
+  labs(
+    size = "Close Funding ($)"
+  ) +
+  geom_smooth()
+
+```
+
+### Remove all races where neither party is close funded
+```{r}
+
+candidateDataCloseNaN %>%
+  filter(win == 1, is.finite(closeFundedRelative)) %>%
+  ggplot(mapping = aes(x = closeFundedRelative, y = margin, size = closeFundedAmt)) + 
+  geom_point() + 
+  ggtitle("Close Funding vs Margin of Victory") +
+  xlab("Relative Close Funding") + 
+  ylab("Margin of Victory (percentage)") +
+  labs(
+    size = "Close Funding ($)"
+  ) +
+  geom_smooth()
+
+cor(candidateDataCloseClean$closeFundedRelative, candidateDataCloseClean$margin)
+
+```
+
+### Calculate self funding amounts before the primary
+```{r}
+
+candidateDataEarly <- candidateData
+
+# Given a dataframe of receipts, a last name, and a first name/aliases, calculates the amount of early self funding a candidate received
+# Returns the total amount received through early self funding
+calculateEarlySelfFunding <- function(receipts, lastname, firstnames) {
+  # Regex pattern that matches any instance where the candidate's first name/aliases precedes their last name, with anything in between and at the beginning and end of strings
+  pattern <- sprintf(".*%s.*%s.*", paste(firstnames, collapse = "|"), lastname)
+  
+  # Filters by using grepping with the above pattern on the donors
+  receipts <- receipts %>%
+    filter(grepl(pattern, c(receipts2018.donor), ignore.case=TRUE), ymd(receipts2018.date) < mdy("5/8/2018"))
+  
+  # Uncomment this print statement to check for discrepancy in resulting list of early self-funded receipts
+  # print(receipts)
+  
+  total <- sum(receipts$receipts2018.amount)
+  return(total)
+}
+
+earlySelfFundedAll <- c()
+
+# For each candidate, calculate their early self-funded total
 for (row in 1:nrow(candidateData)) {
     district <- candidateData[row, "district"]
     lastname <- candidateData[row, "lastname"] %>% tolower()
@@ -129,12 +359,203 @@ for (row in 1:nrow(candidateData)) {
     receipts <- candidateData[row, "receipts2018"]
     receipts <- do.call(data.frame, receipts)
     
-    selfFundedAmt <- calculateSelfFunding(receipts, lastname, firstnames)
+    earlySelfFundedAmt <- calculateEarlySelfFunding(receipts, lastname, firstnames)
 
-    selfFundedAll[[row]] <- selfFundedAmt
+    earlySelfFundedAll <- append(earlySelfFundedAll, earlySelfFundedAmt)
 }
 
 # Update the candidate data with their self-funded totals
-candidateData$selfFundedAmt <- selfFundedAll
+candidateDataEarly$earlySelfFundedAmt <- earlySelfFundedAll
+
 ```
 
+### Calculate relative early self funding compared to opponent
+#### For candidate, we'll get the relative funding compared to their district opponent in the other party
+```{r}
+
+candidateDataEarlyNaN <- candidateDataEarly %>%
+  group_by(district) %>%
+  mutate(earlySelfFundedTotal = sum(earlySelfFundedAmt), earlySelfFundedRelative = earlySelfFundedAmt / (earlySelfFundedTotal)) 
+
+candidateDataEarlyClean <- candidateDataEarlyNaN %>%
+  mutate(earlySelfFundedRelative = if(!is.finite(earlySelfFundedRelative)) 0.5 else earlySelfFundedRelative)
+
+for (row in 1:nrow(candidateDataEarlyNaN)) {
+  receipts <- candidateDataEarlyNaN[row, "receipts2018"]
+  receipts <- do.call(data.frame, receipts)
+  candidateDataEarlyNaN[row, "totalAmount"] = sum(receipts$receipts2018.amount)
+}
+
+for (row in 1:nrow(candidateDataEarlyClean)) {
+  receipts <- candidateDataEarlyClean[row, "receipts2018"]
+  receipts <- do.call(data.frame, receipts)
+  candidateDataEarlyClean[row, "totalAmount"] = sum(receipts$receipts2018.amount)
+}
+
+candidateDataEarlyNaN <- candidateDataEarlyNaN %>%
+  group_by(district) %>%
+  mutate(combinedTotal = sum(totalAmount), totalRelative = totalAmount / (combinedTotal)) 
+
+candidateDataEarlyClean <- candidateDataEarlyClean %>%
+  group_by(district) %>%
+  mutate(combinedTotal = sum(totalAmount), totalRelative = totalAmount / (combinedTotal)) %>%
+  mutate(totalRelative = if(!is.finite(totalRelative)) 0.5 else totalRelative)
+
+```
+
+### Plot early self funding against total amount raised
+```{r}
+
+candidateDataEarlyClean %>%
+  filter(win == 1) %>%
+  ggplot(mapping = aes(x = earlySelfFundedRelative, y = totalRelative, size = earlySelfFundedAmt)) + 
+  geom_point() + 
+  ggtitle("Early Self Funding vs Total Amount Raised") +
+  xlab("Relative Early Self Funding") + 
+  ylab("Relative Total Raised") +
+  labs(
+    size = "Early Self Funding ($)"
+  ) +
+  geom_smooth()
+
+candidateDataEarlyNaN %>%
+  filter(win == 1, is.finite(earlySelfFundedRelative)) %>%
+  ggplot(mapping = aes(x = earlySelfFundedRelative, y = totalRelative, size = earlySelfFundedAmt)) + 
+  geom_point() + 
+  ggtitle("Early Self Funding vs Total Amount Raised") +
+  xlab("Relative Early Self Funding") + 
+  ylab("Relative Total Raised") +
+  labs(
+    size = "Early Self Funding ($)"
+  ) +
+  geom_smooth()
+
+```
+
+### Compare early self funding to margin of victory
+```{r}
+candidateDataEarlyClean %>%
+  #filter(earlySelfFundedAmt > 0) %>%
+  filter(win == 1) %>%
+  ggplot(mapping = aes(x = earlySelfFundedRelative, y = margin)) + 
+  geom_point(size=3) + 
+  geom_smooth()
+```
+
+### Calculate close funding amounts before the primary
+```{r}
+
+candidateDataEarlyClose <- candidateData
+
+# Given a dataframe of receipts, a last name, and a first name/aliases, calculates the amount of early self funding a candidate received
+# Returns the total amount received through early close funding
+calculateEarlyCloseFunding <- function(receipts, lastname, firstnames) {
+  # Regex pattern that matches any instance where the candidate's first name/aliases precedes their last name, with anything in between and at the beginning and end of strings
+  pattern <- sprintf(".*%s.*", lastname)
+  
+  # Filters by using grepping with the above pattern on the donors
+  receipts <- receipts[ grepl(pattern, receipts$receipts2018.donor, ignore.case=TRUE) | grepl(pattern, receipts$receipts2018.employer, ignore.case=TRUE), ]
+  receipts <- receipts %>%
+    filter(ymd(receipts2018.date) < mdy("5/8/2018"))
+  
+  # Uncomment this print statement to check for discrepancy in resulting list of early close-funded receipts
+  # print(receipts)
+  
+  total <- sum(receipts$receipts2018.amount)
+  return(total)
+}
+
+earlyCloseFundedAll <- c()
+
+# For each candidate, calculate their early close-funded total
+for (row in 1:nrow(candidateData)) {
+    district <- candidateData[row, "district"]
+    lastname <- candidateData[row, "lastname"] %>% tolower()
+    firstnames <- c(candidateData[row, "firstname"] %>% tolower())
+    # <- append(strsplit(candidateData[row, "aliases"], "/"), candidateData[row, "firstname"])
+    receipts <- candidateData[row, "receipts2018"]
+    receipts <- do.call(data.frame, receipts)
+    
+    earlyCloseFundedAmt <- calculateEarlyCloseFunding(receipts, lastname, firstnames)
+
+    earlyCloseFundedAll <- append(earlyCloseFundedAll, earlyCloseFundedAmt)
+}
+
+# Update the candidate data with their close-funded totals
+candidateDataEarlyClose$earlyCloseFundedAmt <- earlyCloseFundedAll
+
+```
+
+
+### Calculate relative early self funding compared to opponent
+#### For candidate, we'll get the relative funding compared to their district opponent in the other party
+```{r}
+
+candidateDataEarlyCloseNaN <- candidateDataEarlyClose %>%
+  group_by(district) %>%
+  mutate(earlyCloseFundedTotal = sum(earlyCloseFundedAmt), earlyCloseFundedRelative = earlyCloseFundedAmt / (earlyCloseFundedTotal)) 
+
+candidateDataEarlyCloseClean <- candidateDataEarlyCloseNaN %>%
+  mutate(earlyCloseFundedRelative = if(!is.finite(earlyCloseFundedRelative)) 0.5 else earlyCloseFundedRelative)
+
+for (row in 1:nrow(candidateDataEarlyCloseNaN)) {
+  receipts <- candidateDataEarlyCloseNaN[row, "receipts2018"]
+  receipts <- do.call(data.frame, receipts)
+  candidateDataEarlyCloseNaN[row, "totalAmount"] = sum(receipts$receipts2018.amount)
+}
+
+for (row in 1:nrow(candidateDataEarlyCloseClean)) {
+  receipts <- candidateDataEarlyCloseClean[row, "receipts2018"]
+  receipts <- do.call(data.frame, receipts)
+  candidateDataEarlyCloseClean[row, "totalAmount"] = sum(receipts$receipts2018.amount)
+}
+
+candidateDataEarlyCloseNaN <- candidateDataEarlyCloseNaN %>%
+  group_by(district) %>%
+  mutate(combinedTotal = sum(totalAmount), totalRelative = totalAmount / (combinedTotal)) 
+
+candidateDataEarlyCloseClean <- candidateDataEarlyCloseClean %>%
+  group_by(district) %>%
+  mutate(combinedTotal = sum(totalAmount), totalRelative = totalAmount / (combinedTotal)) %>%
+  mutate(totalRelative = if(!is.finite(totalRelative)) 0.5 else totalRelative)
+
+```
+
+### Plot early close funding against total amount raised
+```{r}
+
+candidateDataEarlyCloseClean %>%
+  filter(win == 1) %>%
+  ggplot(mapping = aes(x = earlyCloseFundedRelative, y = totalRelative, size = earlyCloseFundedAmt)) + 
+  geom_point() + 
+  ggtitle("Early Close Funding vs Total Amount Raised") +
+  xlab("Relative Early Close Funding") + 
+  ylab("Relative Total Raised") +
+  labs(
+    size = "Early Close Funding ($)"
+  ) +
+  geom_smooth()
+
+candidateDataEarlyCloseNaN %>%
+  filter(win == 1, is.finite(earlyCloseFundedRelative)) %>%
+  ggplot(mapping = aes(x = earlyCloseFundedRelative, y = totalRelative, size = earlyCloseFundedAmt)) + 
+  geom_point() + 
+  ggtitle("Early Close Funding vs Total Amount Raised") +
+  xlab("Relative Early Close Funding") + 
+  ylab("Relative Total Raised") +
+  labs(
+    size = "Early Close Funding ($)"
+  ) +
+  geom_smooth()
+
+```
+
+### Compare early self funding to margin of victory
+```{r}
+candidateDataEarlyClean %>%
+  #filter(earlySelfFundedAmt > 0) %>%
+  filter(win == 1) %>%
+  ggplot(mapping = aes(x = earlySelfFundedRelative, y = margin)) + 
+  geom_point(size=3) + 
+  geom_smooth()
+```
