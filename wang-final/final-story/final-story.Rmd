@@ -1,6 +1,7 @@
 ---
 title: "final-story"
 output:
+  pdf_document: default
   html_document:
     df_print: paged
 ---
@@ -151,15 +152,16 @@ candidateDataNaN <- candidateData %>%
   mutate(selfFundedTotal = sum(selfFundedAmt), selfFundedRelative = selfFundedAmt / (selfFundedTotal)) 
 
 candidateDataClean <- candidateDataNaN %>%
-  mutate(selfFundedRelative = if(!is.finite(selfFundedRelative)) 0.5 else selfFundedRelative)
+  mutate(selfFundedRelative = if(!is.finite(selfFundedRelative)[1]) 0.5 else selfFundedRelative)
 
 ```
 
 ### Calculate the percentage of campaigns won by the highest self funder
 ```{r}
+print("Winner's who self funded more than their opponent:")
 nrow(candidateDataClean %>%
   filter(win == 1, selfFundedRelative > 0.5))
-
+print("Winner's who self funded less than their opponent:")
 nrow(candidateDataClean %>%
   filter(win == 1, selfFundedRelative < 0.5))
 ```
@@ -198,7 +200,7 @@ candidateDataClean %>%
 ```{r}
 
 candidateDataNaN %>%
-  filter(win == 1, is.finite(selfFundedRelative)) %>%
+  filter(win == 1, is.finite(selfFundedRelative)[1]) %>%
   ggplot(mapping = aes(x = selfFundedRelative, y = margin, size = selfFundedAmt)) + 
   geom_point() + 
   ggtitle("Self Funding vs Margin of Victory") +
@@ -264,15 +266,17 @@ candidateDataCloseNaN <- candidateDataClose %>%
   mutate(closeFundedTotal = sum(closeFundedAmt), closeFundedRelative = closeFundedAmt / (closeFundedTotal)) 
 
 candidateDataCloseClean <- candidateDataCloseNaN %>%
-  mutate(closeFundedRelative = if(!is.finite(closeFundedRelative)) 0.5 else closeFundedRelative)
+  mutate(closeFundedRelative = if(!(is.finite(closeFundedRelative))[1]) 0.5 else closeFundedRelative)
 
 ```
 
 ### Calculate the percentage of campaigns won by the highest close funder
 ```{r}
+print("Winner's who close funded more than their opponent:")
 nrow(candidateDataCloseClean %>%
   filter(win == 1, closeFundedRelative > 0.5))
 
+print("Winner's who close funded less than their opponent:")
 nrow(candidateDataCloseClean %>%
   filter(win == 1, closeFundedRelative < 0.5))
 ```
@@ -311,7 +315,7 @@ candidateDataCloseClean %>%
 ```{r}
 
 candidateDataCloseNaN %>%
-  filter(win == 1, is.finite(closeFundedRelative)) %>%
+  filter(win == 1, is.finite(closeFundedRelative)[1]) %>%
   ggplot(mapping = aes(x = closeFundedRelative, y = margin, size = closeFundedAmt)) + 
   geom_point() + 
   ggtitle("Close Funding vs Margin of Victory") +
@@ -378,7 +382,7 @@ candidateDataEarlyNaN <- candidateDataEarly %>%
   mutate(earlySelfFundedTotal = sum(earlySelfFundedAmt), earlySelfFundedRelative = earlySelfFundedAmt / (earlySelfFundedTotal)) 
 
 candidateDataEarlyClean <- candidateDataEarlyNaN %>%
-  mutate(earlySelfFundedRelative = if(!is.finite(earlySelfFundedRelative)) 0.5 else earlySelfFundedRelative)
+  mutate(earlySelfFundedRelative = if(!is.finite(earlySelfFundedRelative)[1]) 0.5 else earlySelfFundedRelative)
 
 for (row in 1:nrow(candidateDataEarlyNaN)) {
   receipts <- candidateDataEarlyNaN[row, "receipts2018"]
@@ -399,7 +403,7 @@ candidateDataEarlyNaN <- candidateDataEarlyNaN %>%
 candidateDataEarlyClean <- candidateDataEarlyClean %>%
   group_by(district) %>%
   mutate(combinedTotal = sum(totalAmount), totalRelative = totalAmount / (combinedTotal)) %>%
-  mutate(totalRelative = if(!is.finite(totalRelative)) 0.5 else totalRelative)
+  mutate(totalRelative = if(!is.finite(totalRelative)[1]) 0.5 else totalRelative)
 
 ```
 
@@ -419,7 +423,7 @@ candidateDataEarlyClean %>%
   geom_smooth()
 
 candidateDataEarlyNaN %>%
-  filter(win == 1, is.finite(earlySelfFundedRelative)) %>%
+  filter(win == 1, is.finite(earlySelfFundedRelative)[1]) %>%
   ggplot(mapping = aes(x = earlySelfFundedRelative, y = totalRelative, size = earlySelfFundedAmt)) + 
   geom_point() + 
   ggtitle("Early Self Funding vs Total Amount Raised") +
@@ -499,7 +503,7 @@ candidateDataEarlyCloseNaN <- candidateDataEarlyClose %>%
   mutate(earlyCloseFundedTotal = sum(earlyCloseFundedAmt), earlyCloseFundedRelative = earlyCloseFundedAmt / (earlyCloseFundedTotal)) 
 
 candidateDataEarlyCloseClean <- candidateDataEarlyCloseNaN %>%
-  mutate(earlyCloseFundedRelative = if(!is.finite(earlyCloseFundedRelative)) 0.5 else earlyCloseFundedRelative)
+  mutate(earlyCloseFundedRelative = if(!is.finite(earlyCloseFundedRelative)[1]) 0.5 else earlyCloseFundedRelative)
 
 for (row in 1:nrow(candidateDataEarlyCloseNaN)) {
   receipts <- candidateDataEarlyCloseNaN[row, "receipts2018"]
@@ -520,7 +524,7 @@ candidateDataEarlyCloseNaN <- candidateDataEarlyCloseNaN %>%
 candidateDataEarlyCloseClean <- candidateDataEarlyCloseClean %>%
   group_by(district) %>%
   mutate(combinedTotal = sum(totalAmount), totalRelative = totalAmount / (combinedTotal)) %>%
-  mutate(totalRelative = if(!is.finite(totalRelative)) 0.5 else totalRelative)
+  mutate(totalRelative = if(!is.finite(totalRelative)[1]) 0.5 else totalRelative)
 
 ```
 
@@ -540,7 +544,7 @@ candidateDataEarlyCloseClean %>%
   geom_smooth()
 
 candidateDataEarlyCloseNaN %>%
-  filter(win == 1, is.finite(earlyCloseFundedRelative)) %>%
+  filter(win == 1, is.finite(earlyCloseFundedRelative)[1]) %>%
   ggplot(mapping = aes(x = earlyCloseFundedRelative, y = totalRelative, size = earlyCloseFundedAmt)) + 
   geom_point() + 
   ggtitle("Early Close Funding vs Total Amount Raised") +

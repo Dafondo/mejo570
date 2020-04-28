@@ -1,0 +1,1023 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={final-story},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{final-story}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+\hypertarget{load-the-janitor-and-tidyverse-packages}{%
+\subsubsection{Load the janitor and tidyverse
+packages}\label{load-the-janitor-and-tidyverse-packages}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#install.packages("janitor")}
+\KeywordTok{library}\NormalTok{(janitor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'janitor'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     chisq.test, fisher.test
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#install.packages("tidyverse")}
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages ---------------------------------------------------------------------------------------------------- tidyverse 1.3.0 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.3.0     v purrr   0.3.4
+## v tibble  3.0.0     v dplyr   0.8.5
+## v tidyr   1.0.2     v stringr 1.4.0
+## v readr   1.3.1     v forcats 0.5.0
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------------------------------------------------------------------- tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(lubridate)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'lubridate'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:dplyr':
+## 
+##     intersect, setdiff, union
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     date, intersect, setdiff, union
+\end{verbatim}
+
+\hypertarget{reporting-question}{%
+\subsubsection{Reporting Question}\label{reporting-question}}
+
+\hypertarget{i-noticed-that-a-large-amount-of-donations-came-from-kim-coley-herself-as-in-kind-donations.-im-curious-about-how-well-campaigns-turn-out-depending-on-how-much-the-candidate-invests-in-themselves.-is-there-a-correlation-between-how-much-money-a-candidate-invests-in-their-own-campaign-and-how-much-money-others-invest-in-their-campaign-do-candidates-who-invest-a-certain-amount-into-their-campaign-have-a-higher-chance-of-winning}{%
+\paragraph{I noticed that a large amount of donations came from Kim
+Coley herself as in-kind donations. I'm curious about how well campaigns
+turn out depending on how much the candidate invests in themselves. Is
+there a correlation between how much money a candidate invests in their
+own campaign and how much money others invest in their campaign? Do
+candidates who invest a certain amount into their campaign have a higher
+chance of
+winning?}\label{i-noticed-that-a-large-amount-of-donations-came-from-kim-coley-herself-as-in-kind-donations.-im-curious-about-how-well-campaigns-turn-out-depending-on-how-much-the-candidate-invests-in-themselves.-is-there-a-correlation-between-how-much-money-a-candidate-invests-in-their-own-campaign-and-how-much-money-others-invest-in-their-campaign-do-candidates-who-invest-a-certain-amount-into-their-campaign-have-a-higher-chance-of-winning}}
+
+\hypertarget{get-campaign-finance-data}{%
+\subsubsection{Get campaign finance
+data}\label{get-campaign-finance-data}}
+
+\hypertarget{this-data-includes-all-2018-quarterly-reports-for-2018-nc-senate-candidates-where-available}{%
+\paragraph{This data includes all 2018 quarterly reports for 2018 NC
+Senate candidates where
+available}\label{this-data-includes-all-2018-quarterly-reports-for-2018-nc-senate-candidates-where-available}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Reads in candidate data}
+\NormalTok{candidateData <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"../python/senate2018/urls.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Parsed with column specification:
+## cols(
+##   district = col_double(),
+##   win = col_double(),
+##   margin = col_double(),
+##   firstname = col_character(),
+##   aliases = col_character(),
+##   lastname = col_character(),
+##   url = col_character()
+## )
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{receiptsAll <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
+
+\CommentTok{# Given a district number and last name, consolidates the quarterly receipts for a candidate}
+\CommentTok{# Returns a dataframe of receipts from 2018}
+\NormalTok{consolidateReceipts <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(district, lastname) \{}
+  \CommentTok{# Creates an empty dataframe with column names}
+\NormalTok{  rcpts_complete <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{vector}\NormalTok{(), }\DecValTok{0}\NormalTok{, }\DecValTok{19}\NormalTok{,}
+                \DataTypeTok{dimnames=}\KeywordTok{list}\NormalTok{(}\KeywordTok{c}\NormalTok{(), }\KeywordTok{c}\NormalTok{(}\StringTok{"Date"}\NormalTok{, }\StringTok{"Is Prior"}\NormalTok{, }\StringTok{"Name"}\NormalTok{, }\StringTok{"Street 1"}\NormalTok{, }\StringTok{"Street 2"}\NormalTok{, }\StringTok{"City"}\NormalTok{, }\StringTok{"State"}\NormalTok{, }\StringTok{"Full Zip"}\NormalTok{, }
+                                     \StringTok{"Country Name"}\NormalTok{, }\StringTok{"Outside US Postal Code"}\NormalTok{, }\StringTok{"Profession"}\NormalTok{, }\StringTok{"Employers Name"}\NormalTok{, }\StringTok{"Purpose"}\NormalTok{, }
+                                     \StringTok{"Receipt Type Desc"}\NormalTok{, }\StringTok{"Account Abbr"}\NormalTok{, }\StringTok{"Form Of Payment Desc"}\NormalTok{, }\StringTok{"Description"}\NormalTok{, }\StringTok{"Amount"}\NormalTok{, }
+                                     \StringTok{"Sum To Date"}\NormalTok{))),}
+                \DataTypeTok{stringsAsFactors=}\NormalTok{F)}
+  
+    \CommentTok{# Constructs CSV paths from district and last name}
+\NormalTok{    urls <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{sprintf}\NormalTok{(}\StringTok{"../python/data/senate2018/%s/%s/q1.csv"}\NormalTok{, district, lastname),}
+              \KeywordTok{sprintf}\NormalTok{(}\StringTok{"../python/data/senate2018/%s/%s/q2.csv"}\NormalTok{, district, lastname),}
+              \KeywordTok{sprintf}\NormalTok{(}\StringTok{"../python/data/senate2018/%s/%s/q3.csv"}\NormalTok{, district, lastname),}
+              \KeywordTok{sprintf}\NormalTok{(}\StringTok{"../python/data/senate2018/%s/%s/q4.csv"}\NormalTok{, district, lastname))}
+    
+    \CommentTok{# Tries to open each quarterly receipt CSV and unions it to a running dataframe}
+    \ControlFlowTok{for}\NormalTok{(url }\ControlFlowTok{in}\NormalTok{ urls)\{}
+      \CommentTok{# If the file doesn't exist, skip it}
+      \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{file.exists}\NormalTok{(url)) \{}
+\NormalTok{        temp <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(url, }
+          \DataTypeTok{col_types =} \KeywordTok{cols}\NormalTok{(}
+            \StringTok{`}\DataTypeTok{Account Abbr}\StringTok{`}\NormalTok{ =}\StringTok{ }\KeywordTok{col_character}\NormalTok{(), }
+              \DataTypeTok{City =} \KeywordTok{col_character}\NormalTok{(), }
+            \StringTok{`}\DataTypeTok{Country Name}\StringTok{`}\NormalTok{ =}\StringTok{ }\KeywordTok{col_character}\NormalTok{(), }
+              \DataTypeTok{Date =} \KeywordTok{col_date}\NormalTok{(}\DataTypeTok{format =} \StringTok{"%m/%d/%Y"}\NormalTok{), }
+              \DataTypeTok{Description =} \KeywordTok{col_character}\NormalTok{(), }
+            \StringTok{`}\DataTypeTok{Employers Name}\StringTok{`}\NormalTok{ =}\StringTok{ }\KeywordTok{col_character}\NormalTok{(), }
+              \StringTok{`}\DataTypeTok{Full Zip}\StringTok{`}\NormalTok{ =}\StringTok{ }\KeywordTok{col_character}\NormalTok{(), }
+            \StringTok{`}\DataTypeTok{Outside US Postal Code}\StringTok{`}\NormalTok{ =}\StringTok{ }\KeywordTok{col_character}\NormalTok{(), }
+              \DataTypeTok{Profession =} \KeywordTok{col_character}\NormalTok{(), }
+            \DataTypeTok{Purpose =} \KeywordTok{col_character}\NormalTok{(), }
+              \DataTypeTok{State =} \KeywordTok{col_character}\NormalTok{(), }
+            \StringTok{`}\DataTypeTok{Street 1}\StringTok{`}\NormalTok{ =}\StringTok{ }\KeywordTok{col_character}\NormalTok{(), }
+              \StringTok{`}\DataTypeTok{Street 2}\StringTok{`}\NormalTok{ =}\StringTok{ }\KeywordTok{col_character}\NormalTok{()),}
+          \DataTypeTok{skip =} \DecValTok{1}\NormalTok{)}
+        
+\NormalTok{        rcpts_complete <-}\StringTok{ }\KeywordTok{union_all}\NormalTok{(rcpts_complete, temp)}
+\NormalTok{      \}}
+\NormalTok{    \}}
+    
+    \CommentTok{#Finally, we should rename the columns to remove spaces and generally promote brevity.}
+    \KeywordTok{names}\NormalTok{(rcpts_complete) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"date"}\NormalTok{,}\StringTok{"prior"}\NormalTok{,}\StringTok{"donor"}\NormalTok{,}\StringTok{"street1"}\NormalTok{,}\StringTok{"street2"}\NormalTok{,}\StringTok{"city"}\NormalTok{,}\StringTok{"state"}\NormalTok{,}\StringTok{"zip"}\NormalTok{,}\StringTok{"country"}\NormalTok{,}\StringTok{"postal"}\NormalTok{,}\StringTok{"profession"}\NormalTok{,}\StringTok{"employer"}\NormalTok{,}\StringTok{"purpose"}\NormalTok{,}\StringTok{"type"}\NormalTok{,}\StringTok{"account"}\NormalTok{,}\StringTok{"payment_form"}\NormalTok{,}\StringTok{"description"}\NormalTok{,}\StringTok{"amount"}\NormalTok{,}\StringTok{"sum_to_date"}\NormalTok{)}
+    
+    \KeywordTok{return}\NormalTok{(rcpts_complete)}
+\NormalTok{\}}
+
+\CommentTok{#candidateData <- candidateData %>%}
+\CommentTok{#  mutate(receipts2018 = list(consolidateReceipts(district, tolower(lastname))))}
+
+\CommentTok{# For each candidate, consolidate their quarterly receipts}
+\ControlFlowTok{for}\NormalTok{ (row }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(candidateData)) \{}
+\NormalTok{    district <-}\StringTok{ }\NormalTok{candidateData[row, }\StringTok{"district"}\NormalTok{]}
+\NormalTok{    lastname <-}\StringTok{ }\NormalTok{candidateData[row, }\StringTok{"lastname"}\NormalTok{] }\OperatorTok{%>%}\StringTok{ }\KeywordTok{tolower}\NormalTok{()}
+    
+\NormalTok{    rcpts_complete <-}\StringTok{ }\KeywordTok{consolidateReceipts}\NormalTok{(district, lastname)}
+
+\NormalTok{    receiptsAll[[row]] <-}\StringTok{ }\NormalTok{rcpts_complete}
+\NormalTok{\}}
+
+\CommentTok{# Update the candidate data with their receipts as lists}
+\NormalTok{candidateData}\OperatorTok{$}\NormalTok{receipts2018 <-}\StringTok{ }\NormalTok{receiptsAll}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{calculate-self-funding}{%
+\subsubsection{Calculate self funding}\label{calculate-self-funding}}
+
+\hypertarget{searches-through-each-receipt-data-frame-for-matches-with-the-candidates-name}{%
+\paragraph{Searches through each receipt data frame for matches with the
+candidate's
+name}\label{searches-through-each-receipt-data-frame-for-matches-with-the-candidates-name}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Given a dataframe of receipts, a last name, and a first name/aliases, calculates the amount of self funding a candidate received}
+\CommentTok{# Returns the total amount received through self funding}
+\NormalTok{calculateSelfFunding <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(receipts, lastname, firstnames) \{}
+  \CommentTok{# Regex pattern that matches any instance where the candidate's first name/aliases precedes their last name, with anything in between and at the beginning and end of strings}
+\NormalTok{  pattern <-}\StringTok{ }\KeywordTok{sprintf}\NormalTok{(}\StringTok{".*%s.*%s.*"}\NormalTok{, }\KeywordTok{paste}\NormalTok{(firstnames, }\DataTypeTok{collapse =} \StringTok{"|"}\NormalTok{), lastname)}
+  
+  \CommentTok{# Filters by using grepping with the above pattern on the donors}
+\NormalTok{  receipts <-}\StringTok{ }\NormalTok{receipts }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\KeywordTok{grepl}\NormalTok{(pattern, }\KeywordTok{c}\NormalTok{(receipts2018.donor), }\DataTypeTok{ignore.case=}\OtherTok{TRUE}\NormalTok{))}
+  
+  \CommentTok{# Uncomment this print statement to check for discrepancy in resulting list of self-funded receipts}
+  \CommentTok{# print(receipts)}
+  
+\NormalTok{  total <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(receipts}\OperatorTok{$}\NormalTok{receipts2018.amount)}
+  \KeywordTok{return}\NormalTok{(total)}
+\NormalTok{\}}
+
+\NormalTok{selfFundedAll <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
+
+\CommentTok{# For each candidate, calculate their self-funded total}
+\ControlFlowTok{for}\NormalTok{ (row }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(candidateData)) \{}
+\NormalTok{    district <-}\StringTok{ }\NormalTok{candidateData[row, }\StringTok{"district"}\NormalTok{]}
+\NormalTok{    lastname <-}\StringTok{ }\NormalTok{candidateData[row, }\StringTok{"lastname"}\NormalTok{] }\OperatorTok{%>%}\StringTok{ }\KeywordTok{tolower}\NormalTok{()}
+\NormalTok{    firstnames <-}\StringTok{ }\KeywordTok{c}\NormalTok{(candidateData[row, }\StringTok{"firstname"}\NormalTok{] }\OperatorTok{%>%}\StringTok{ }\KeywordTok{tolower}\NormalTok{())}
+\NormalTok{    aliases <-}\StringTok{ }\NormalTok{candidateData[row, }\StringTok{"aliases"}\NormalTok{]}
+    \ControlFlowTok{if}\NormalTok{ (}\OperatorTok{!}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(aliases) }\OperatorTok{||}\StringTok{ }\NormalTok{aliases }\OperatorTok{==}\StringTok{ ""}\NormalTok{) }\OperatorTok{&&}\StringTok{ }\KeywordTok{typeof}\NormalTok{(aliases) }\OperatorTok{==}\StringTok{ "character"}\NormalTok{) \{}
+\NormalTok{      firstnames <-}\StringTok{ }\KeywordTok{append}\NormalTok{(firstnames, }\KeywordTok{strsplit}\NormalTok{(candidateData[row, }\StringTok{"aliases"}\NormalTok{], }\StringTok{"/"}\NormalTok{))}
+\NormalTok{    \}}
+\NormalTok{    receipts <-}\StringTok{ }\NormalTok{candidateData[row, }\StringTok{"receipts2018"}\NormalTok{]}
+\NormalTok{    receipts <-}\StringTok{ }\KeywordTok{do.call}\NormalTok{(data.frame, receipts)}
+    
+\NormalTok{    selfFundedAmt <-}\StringTok{ }\KeywordTok{calculateSelfFunding}\NormalTok{(receipts, lastname, firstnames)}
+
+\NormalTok{    selfFundedAll <-}\StringTok{ }\KeywordTok{append}\NormalTok{(selfFundedAll, selfFundedAmt)}
+\NormalTok{\}}
+
+\CommentTok{# Update the candidate data with their self-funded totals}
+\NormalTok{candidateData}\OperatorTok{$}\NormalTok{selfFundedAmt <-}\StringTok{ }\NormalTok{selfFundedAll}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{calculate-relative-self-funding-compared-to-opponent}{%
+\subsubsection{Calculate relative self funding compared to
+opponent}\label{calculate-relative-self-funding-compared-to-opponent}}
+
+\hypertarget{for-candidate-well-get-the-relative-funding-compared-to-their-district-opponent-in-the-other-party}{%
+\paragraph{For candidate, we'll get the relative funding compared to
+their district opponent in the other
+party}\label{for-candidate-well-get-the-relative-funding-compared-to-their-district-opponent-in-the-other-party}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candidateDataNaN <-}\StringTok{ }\NormalTok{candidateData }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(district) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{selfFundedTotal =} \KeywordTok{sum}\NormalTok{(selfFundedAmt), }\DataTypeTok{selfFundedRelative =}\NormalTok{ selfFundedAmt }\OperatorTok{/}\StringTok{ }\NormalTok{(selfFundedTotal)) }
+
+\NormalTok{candidateDataClean <-}\StringTok{ }\NormalTok{candidateDataNaN }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{selfFundedRelative =} \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.finite}\NormalTok{(selfFundedRelative)[}\DecValTok{1}\NormalTok{]) }\FloatTok{0.5} \ControlFlowTok{else}\NormalTok{ selfFundedRelative)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{calculate-the-percentage-of-campaigns-won-by-the-highest-self-funder}{%
+\subsubsection{Calculate the percentage of campaigns won by the highest
+self
+funder}\label{calculate-the-percentage-of-campaigns-won-by-the-highest-self-funder}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{print}\NormalTok{(}\StringTok{"Winner's who self funded more than their opponent:"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Winner's who self funded more than their opponent:"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{nrow}\NormalTok{(candidateDataClean }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(win }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{, selfFundedRelative }\OperatorTok{>}\StringTok{ }\FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 15
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{print}\NormalTok{(}\StringTok{"Winner's who self funded less than their opponent:"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Winner's who self funded less than their opponent:"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{nrow}\NormalTok{(candidateDataClean }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(win }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{, selfFundedRelative }\OperatorTok{<}\StringTok{ }\FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 19
+\end{verbatim}
+
+\hypertarget{plot-relative-self-funding-vs-margin-of-victory-for-winners}{%
+\subsubsection{Plot relative self funding vs margin of victory for
+winners}\label{plot-relative-self-funding-vs-margin-of-victory-for-winners}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candidateDataClean }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(win }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ selfFundedRelative, }\DataTypeTok{y =}\NormalTok{ margin, }\DataTypeTok{size =}\NormalTok{ selfFundedAmt)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Self Funding vs Margin of Victory"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Relative Self Funding"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Margin of Victory (percentage)"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}
+    \DataTypeTok{size =} \StringTok{"Self Funding ($)"}
+\NormalTok{  ) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{final-story_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candidateDataClean }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(win }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{, selfFundedTotal }\OperatorTok{>}\StringTok{ }\DecValTok{1000}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ selfFundedRelative, }\DataTypeTok{y =}\NormalTok{ margin, }\DataTypeTok{size =}\NormalTok{ selfFundedAmt)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Self Funding vs Margin of Victory"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Relative Self Funding"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Margin of Victory (percentage)"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}
+    \DataTypeTok{size =} \StringTok{"Self Funding ($)"}
+\NormalTok{  ) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{final-story_files/figure-latex/unnamed-chunk-6-2.pdf}
+
+\hypertarget{remove-all-races-where-neither-party-self-funded}{%
+\subsubsection{Remove all races where neither party self
+funded}\label{remove-all-races-where-neither-party-self-funded}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candidateDataNaN }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(win }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{, }\KeywordTok{is.finite}\NormalTok{(selfFundedRelative)[}\DecValTok{1}\NormalTok{]) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ selfFundedRelative, }\DataTypeTok{y =}\NormalTok{ margin, }\DataTypeTok{size =}\NormalTok{ selfFundedAmt)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Self Funding vs Margin of Victory"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Relative Self Funding"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Margin of Victory (percentage)"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}
+    \DataTypeTok{size =} \StringTok{"Self Funding ($)"}
+\NormalTok{  ) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{final-story_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cor}\NormalTok{(candidateDataClean}\OperatorTok{$}\NormalTok{selfFundedRelative, candidateDataClean}\OperatorTok{$}\NormalTok{margin)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5.649065e-18
+\end{verbatim}
+
+\hypertarget{gather-close-funding-data}{%
+\subsubsection{Gather close funding
+data}\label{gather-close-funding-data}}
+
+\hypertarget{get-data-donated-from-family-and-family-businesses}{%
+\paragraph{Get data donated from family and family
+businesses}\label{get-data-donated-from-family-and-family-businesses}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candidateDataClose <-}\StringTok{ }\NormalTok{candidateData}
+
+\CommentTok{# Given a dataframe of receipts, a last name, and a first name/aliases, calculates the amount of self funding a candidate received}
+\CommentTok{# Returns the total amount received through self funding}
+\NormalTok{calculateCloseFunding <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(receipts, lastname) \{}
+  \CommentTok{# Regex pattern that matches any instance where the candidate's first name/aliases precedes their last name, with anything in between and at the beginning and end of strings}
+\NormalTok{  pattern <-}\StringTok{ }\KeywordTok{sprintf}\NormalTok{(}\StringTok{".*%s.*"}\NormalTok{, lastname)}
+  
+  \CommentTok{# Filters by using grepping with the above pattern on the donors}
+\NormalTok{  receipts <-}\StringTok{ }\NormalTok{receipts[ }\KeywordTok{grepl}\NormalTok{(pattern, receipts}\OperatorTok{$}\NormalTok{receipts2018.donor, }\DataTypeTok{ignore.case=}\OtherTok{TRUE}\NormalTok{) }\OperatorTok{|}\StringTok{ }\KeywordTok{grepl}\NormalTok{(pattern, receipts}\OperatorTok{$}\NormalTok{receipts2018.employer, }\DataTypeTok{ignore.case=}\OtherTok{TRUE}\NormalTok{), ]}
+  
+  \CommentTok{# Uncomment this print statement to check for discrepancy in resulting list of self-funded receipts}
+  \CommentTok{# print(receipts)}
+  
+\NormalTok{  total <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(receipts}\OperatorTok{$}\NormalTok{receipts2018.amount)}
+  \KeywordTok{return}\NormalTok{(total)}
+\NormalTok{\}}
+
+\NormalTok{closeFundedAll <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
+
+\CommentTok{# For each candidate, calculate their self-funded total}
+\ControlFlowTok{for}\NormalTok{ (row }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(candidateData)) \{}
+\NormalTok{    district <-}\StringTok{ }\NormalTok{candidateData[row, }\StringTok{"district"}\NormalTok{]}
+\NormalTok{    lastname <-}\StringTok{ }\NormalTok{candidateData[row, }\StringTok{"lastname"}\NormalTok{] }\OperatorTok{%>%}\StringTok{ }\KeywordTok{tolower}\NormalTok{()}
+\NormalTok{    receipts <-}\StringTok{ }\NormalTok{candidateData[row, }\StringTok{"receipts2018"}\NormalTok{]}
+\NormalTok{    receipts <-}\StringTok{ }\KeywordTok{do.call}\NormalTok{(data.frame, receipts)}
+    
+\NormalTok{    closeFundedAmt <-}\StringTok{ }\KeywordTok{calculateCloseFunding}\NormalTok{(receipts, lastname)}
+
+\NormalTok{    closeFundedAll <-}\StringTok{ }\KeywordTok{append}\NormalTok{(closeFundedAll, closeFundedAmt)}
+\NormalTok{\}}
+
+\CommentTok{# Update the candidate data with their self-funded totals}
+\NormalTok{candidateDataClose}\OperatorTok{$}\NormalTok{closeFundedAmt <-}\StringTok{ }\NormalTok{closeFundedAll}
+
+\NormalTok{candidateDataClose}\OperatorTok{$}\NormalTok{closeFundedAmt}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]   6865.29   2935.33    751.00      0.00    100.00   1200.00      0.00
+##  [8]      0.00    215.00      0.00   1707.74   3000.00    700.00    100.00
+## [15]   1500.00      0.00   5350.00    950.00     50.00   1000.00   1600.00
+## [22]      0.00   6386.48      0.00   1182.61   2000.00  25281.77    100.00
+## [29]   2000.00      0.00  50432.11      0.00 105000.00    207.00  58319.49
+## [36]      0.00   1369.00    500.00  26826.71   1500.00    207.00   2095.00
+## [43]      0.00    100.00     62.00      0.00  58828.97    400.00   4460.62
+## [50]   3603.77   1457.00      0.00  38397.00      0.00   3194.55    747.70
+## [57]    150.00      0.00      0.00      0.00    861.95      0.00    100.00
+## [64]      0.00   2335.00   1493.66   8706.41   1500.00    750.00   1326.00
+## [71]   6700.00      0.00      0.00      0.00    809.74  15524.28    715.10
+## [78]   5200.00   6973.00    150.00    950.00   5000.00      0.00   1702.75
+## [85]      0.00      0.00   2350.00   3000.00    125.00   2728.05      0.00
+## [92]   2576.89  55936.90    500.00  17021.19    449.07
+\end{verbatim}
+
+\hypertarget{calculate-relative-close-funding-compared-to-opponent}{%
+\subsubsection{Calculate relative close funding compared to
+opponent}\label{calculate-relative-close-funding-compared-to-opponent}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candidateDataCloseNaN <-}\StringTok{ }\NormalTok{candidateDataClose }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(district) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{closeFundedTotal =} \KeywordTok{sum}\NormalTok{(closeFundedAmt), }\DataTypeTok{closeFundedRelative =}\NormalTok{ closeFundedAmt }\OperatorTok{/}\StringTok{ }\NormalTok{(closeFundedTotal)) }
+
+\NormalTok{candidateDataCloseClean <-}\StringTok{ }\NormalTok{candidateDataCloseNaN }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{closeFundedRelative =} \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\NormalTok{(}\KeywordTok{is.finite}\NormalTok{(closeFundedRelative))[}\DecValTok{1}\NormalTok{]) }\FloatTok{0.5} \ControlFlowTok{else}\NormalTok{ closeFundedRelative)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{calculate-the-percentage-of-campaigns-won-by-the-highest-close-funder}{%
+\subsubsection{Calculate the percentage of campaigns won by the highest
+close
+funder}\label{calculate-the-percentage-of-campaigns-won-by-the-highest-close-funder}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{print}\NormalTok{(}\StringTok{"Winner's who close funded more than their opponent:"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Winner's who close funded more than their opponent:"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{nrow}\NormalTok{(candidateDataCloseClean }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(win }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{, closeFundedRelative }\OperatorTok{>}\StringTok{ }\FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 22
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{print}\NormalTok{(}\StringTok{"Winner's who close funded less than their opponent:"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Winner's who close funded less than their opponent:"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{nrow}\NormalTok{(candidateDataCloseClean }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(win }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{, closeFundedRelative }\OperatorTok{<}\StringTok{ }\FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 22
+\end{verbatim}
+
+\hypertarget{plot-relative-funding-vs-margin-of-victory-for-winners}{%
+\subsubsection{Plot relative funding vs margin of victory for
+winners}\label{plot-relative-funding-vs-margin-of-victory-for-winners}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candidateDataCloseClean }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(win }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ closeFundedRelative, }\DataTypeTok{y =}\NormalTok{ margin, }\DataTypeTok{size =}\NormalTok{ closeFundedAmt)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Close Funding vs Margin of Victory"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Relative Close Funding"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Margin of Victory (percentage)"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}
+    \DataTypeTok{size =} \StringTok{"Close Funding ($)"}
+\NormalTok{  ) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{final-story_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candidateDataCloseClean }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(win }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{, closeFundedTotal }\OperatorTok{>}\StringTok{ }\DecValTok{1000}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ closeFundedRelative, }\DataTypeTok{y =}\NormalTok{ margin, }\DataTypeTok{size =}\NormalTok{ closeFundedAmt)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Close Funding vs Margin of Victory"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Relative Close Funding"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Margin of Victory (percentage)"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}
+    \DataTypeTok{size =} \StringTok{"Close Funding ($)"}
+\NormalTok{  ) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{final-story_files/figure-latex/unnamed-chunk-11-2.pdf}
+
+\hypertarget{remove-all-races-where-neither-party-is-close-funded}{%
+\subsubsection{Remove all races where neither party is close
+funded}\label{remove-all-races-where-neither-party-is-close-funded}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candidateDataCloseNaN }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(win }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{, }\KeywordTok{is.finite}\NormalTok{(closeFundedRelative)[}\DecValTok{1}\NormalTok{]) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ closeFundedRelative, }\DataTypeTok{y =}\NormalTok{ margin, }\DataTypeTok{size =}\NormalTok{ closeFundedAmt)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Close Funding vs Margin of Victory"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Relative Close Funding"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Margin of Victory (percentage)"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}
+    \DataTypeTok{size =} \StringTok{"Close Funding ($)"}
+\NormalTok{  ) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{final-story_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cor}\NormalTok{(candidateDataCloseClean}\OperatorTok{$}\NormalTok{closeFundedRelative, candidateDataCloseClean}\OperatorTok{$}\NormalTok{margin)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 8.218065e-20
+\end{verbatim}
+
+\hypertarget{calculate-self-funding-amounts-before-the-primary}{%
+\subsubsection{Calculate self funding amounts before the
+primary}\label{calculate-self-funding-amounts-before-the-primary}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candidateDataEarly <-}\StringTok{ }\NormalTok{candidateData}
+
+\CommentTok{# Given a dataframe of receipts, a last name, and a first name/aliases, calculates the amount of early self funding a candidate received}
+\CommentTok{# Returns the total amount received through early self funding}
+\NormalTok{calculateEarlySelfFunding <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(receipts, lastname, firstnames) \{}
+  \CommentTok{# Regex pattern that matches any instance where the candidate's first name/aliases precedes their last name, with anything in between and at the beginning and end of strings}
+\NormalTok{  pattern <-}\StringTok{ }\KeywordTok{sprintf}\NormalTok{(}\StringTok{".*%s.*%s.*"}\NormalTok{, }\KeywordTok{paste}\NormalTok{(firstnames, }\DataTypeTok{collapse =} \StringTok{"|"}\NormalTok{), lastname)}
+  
+  \CommentTok{# Filters by using grepping with the above pattern on the donors}
+\NormalTok{  receipts <-}\StringTok{ }\NormalTok{receipts }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\KeywordTok{grepl}\NormalTok{(pattern, }\KeywordTok{c}\NormalTok{(receipts2018.donor), }\DataTypeTok{ignore.case=}\OtherTok{TRUE}\NormalTok{), }\KeywordTok{ymd}\NormalTok{(receipts2018.date) }\OperatorTok{<}\StringTok{ }\KeywordTok{mdy}\NormalTok{(}\StringTok{"5/8/2018"}\NormalTok{))}
+  
+  \CommentTok{# Uncomment this print statement to check for discrepancy in resulting list of early self-funded receipts}
+  \CommentTok{# print(receipts)}
+  
+\NormalTok{  total <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(receipts}\OperatorTok{$}\NormalTok{receipts2018.amount)}
+  \KeywordTok{return}\NormalTok{(total)}
+\NormalTok{\}}
+
+\NormalTok{earlySelfFundedAll <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
+
+\CommentTok{# For each candidate, calculate their early self-funded total}
+\ControlFlowTok{for}\NormalTok{ (row }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(candidateData)) \{}
+\NormalTok{    district <-}\StringTok{ }\NormalTok{candidateData[row, }\StringTok{"district"}\NormalTok{]}
+\NormalTok{    lastname <-}\StringTok{ }\NormalTok{candidateData[row, }\StringTok{"lastname"}\NormalTok{] }\OperatorTok{%>%}\StringTok{ }\KeywordTok{tolower}\NormalTok{()}
+\NormalTok{    firstnames <-}\StringTok{ }\KeywordTok{c}\NormalTok{(candidateData[row, }\StringTok{"firstname"}\NormalTok{] }\OperatorTok{%>%}\StringTok{ }\KeywordTok{tolower}\NormalTok{())}
+    \CommentTok{# <- append(strsplit(candidateData[row, "aliases"], "/"), candidateData[row, "firstname"])}
+\NormalTok{    receipts <-}\StringTok{ }\NormalTok{candidateData[row, }\StringTok{"receipts2018"}\NormalTok{]}
+\NormalTok{    receipts <-}\StringTok{ }\KeywordTok{do.call}\NormalTok{(data.frame, receipts)}
+    
+\NormalTok{    earlySelfFundedAmt <-}\StringTok{ }\KeywordTok{calculateEarlySelfFunding}\NormalTok{(receipts, lastname, firstnames)}
+
+\NormalTok{    earlySelfFundedAll <-}\StringTok{ }\KeywordTok{append}\NormalTok{(earlySelfFundedAll, earlySelfFundedAmt)}
+\NormalTok{\}}
+
+\CommentTok{# Update the candidate data with their self-funded totals}
+\NormalTok{candidateDataEarly}\OperatorTok{$}\NormalTok{earlySelfFundedAmt <-}\StringTok{ }\NormalTok{earlySelfFundedAll}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{calculate-relative-early-self-funding-compared-to-opponent}{%
+\subsubsection{Calculate relative early self funding compared to
+opponent}\label{calculate-relative-early-self-funding-compared-to-opponent}}
+
+\hypertarget{for-candidate-well-get-the-relative-funding-compared-to-their-district-opponent-in-the-other-party-1}{%
+\paragraph{For candidate, we'll get the relative funding compared to
+their district opponent in the other
+party}\label{for-candidate-well-get-the-relative-funding-compared-to-their-district-opponent-in-the-other-party-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candidateDataEarlyNaN <-}\StringTok{ }\NormalTok{candidateDataEarly }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(district) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{earlySelfFundedTotal =} \KeywordTok{sum}\NormalTok{(earlySelfFundedAmt), }\DataTypeTok{earlySelfFundedRelative =}\NormalTok{ earlySelfFundedAmt }\OperatorTok{/}\StringTok{ }\NormalTok{(earlySelfFundedTotal)) }
+
+\NormalTok{candidateDataEarlyClean <-}\StringTok{ }\NormalTok{candidateDataEarlyNaN }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{earlySelfFundedRelative =} \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.finite}\NormalTok{(earlySelfFundedRelative)[}\DecValTok{1}\NormalTok{]) }\FloatTok{0.5} \ControlFlowTok{else}\NormalTok{ earlySelfFundedRelative)}
+
+\ControlFlowTok{for}\NormalTok{ (row }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(candidateDataEarlyNaN)) \{}
+\NormalTok{  receipts <-}\StringTok{ }\NormalTok{candidateDataEarlyNaN[row, }\StringTok{"receipts2018"}\NormalTok{]}
+\NormalTok{  receipts <-}\StringTok{ }\KeywordTok{do.call}\NormalTok{(data.frame, receipts)}
+\NormalTok{  candidateDataEarlyNaN[row, }\StringTok{"totalAmount"}\NormalTok{] =}\StringTok{ }\KeywordTok{sum}\NormalTok{(receipts}\OperatorTok{$}\NormalTok{receipts2018.amount)}
+\NormalTok{\}}
+
+\ControlFlowTok{for}\NormalTok{ (row }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(candidateDataEarlyClean)) \{}
+\NormalTok{  receipts <-}\StringTok{ }\NormalTok{candidateDataEarlyClean[row, }\StringTok{"receipts2018"}\NormalTok{]}
+\NormalTok{  receipts <-}\StringTok{ }\KeywordTok{do.call}\NormalTok{(data.frame, receipts)}
+\NormalTok{  candidateDataEarlyClean[row, }\StringTok{"totalAmount"}\NormalTok{] =}\StringTok{ }\KeywordTok{sum}\NormalTok{(receipts}\OperatorTok{$}\NormalTok{receipts2018.amount)}
+\NormalTok{\}}
+
+\NormalTok{candidateDataEarlyNaN <-}\StringTok{ }\NormalTok{candidateDataEarlyNaN }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(district) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{combinedTotal =} \KeywordTok{sum}\NormalTok{(totalAmount), }\DataTypeTok{totalRelative =}\NormalTok{ totalAmount }\OperatorTok{/}\StringTok{ }\NormalTok{(combinedTotal)) }
+
+\NormalTok{candidateDataEarlyClean <-}\StringTok{ }\NormalTok{candidateDataEarlyClean }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(district) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{combinedTotal =} \KeywordTok{sum}\NormalTok{(totalAmount), }\DataTypeTok{totalRelative =}\NormalTok{ totalAmount }\OperatorTok{/}\StringTok{ }\NormalTok{(combinedTotal)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{totalRelative =} \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.finite}\NormalTok{(totalRelative)[}\DecValTok{1}\NormalTok{]) }\FloatTok{0.5} \ControlFlowTok{else}\NormalTok{ totalRelative)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{plot-early-self-funding-against-total-amount-raised}{%
+\subsubsection{Plot early self funding against total amount
+raised}\label{plot-early-self-funding-against-total-amount-raised}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candidateDataEarlyClean }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(win }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ earlySelfFundedRelative, }\DataTypeTok{y =}\NormalTok{ totalRelative, }\DataTypeTok{size =}\NormalTok{ earlySelfFundedAmt)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Early Self Funding vs Total Amount Raised"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Relative Early Self Funding"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Relative Total Raised"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}
+    \DataTypeTok{size =} \StringTok{"Early Self Funding ($)"}
+\NormalTok{  ) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{final-story_files/figure-latex/unnamed-chunk-15-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candidateDataEarlyNaN }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(win }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{, }\KeywordTok{is.finite}\NormalTok{(earlySelfFundedRelative)[}\DecValTok{1}\NormalTok{]) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ earlySelfFundedRelative, }\DataTypeTok{y =}\NormalTok{ totalRelative, }\DataTypeTok{size =}\NormalTok{ earlySelfFundedAmt)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Early Self Funding vs Total Amount Raised"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Relative Early Self Funding"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Relative Total Raised"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}
+    \DataTypeTok{size =} \StringTok{"Early Self Funding ($)"}
+\NormalTok{  ) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{final-story_files/figure-latex/unnamed-chunk-15-2.pdf}
+
+\hypertarget{compare-early-self-funding-to-margin-of-victory}{%
+\subsubsection{Compare early self funding to margin of
+victory}\label{compare-early-self-funding-to-margin-of-victory}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candidateDataEarlyClean }\OperatorTok{%>%}
+\StringTok{  }\CommentTok{#filter(earlySelfFundedAmt > 0) %>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(win }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ earlySelfFundedRelative, }\DataTypeTok{y =}\NormalTok{ margin)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size=}\DecValTok{3}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Early Self Funding vs Margin of Victory"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Relative Early Self Funding"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Margin of Victory (percentage)"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{final-story_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+\hypertarget{calculate-close-funding-amounts-before-the-primary}{%
+\subsubsection{Calculate close funding amounts before the
+primary}\label{calculate-close-funding-amounts-before-the-primary}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candidateDataEarlyClose <-}\StringTok{ }\NormalTok{candidateData}
+
+\CommentTok{# Given a dataframe of receipts, a last name, and a first name/aliases, calculates the amount of early self funding a candidate received}
+\CommentTok{# Returns the total amount received through early close funding}
+\NormalTok{calculateEarlyCloseFunding <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(receipts, lastname, firstnames) \{}
+  \CommentTok{# Regex pattern that matches any instance where the candidate's first name/aliases precedes their last name, with anything in between and at the beginning and end of strings}
+\NormalTok{  pattern <-}\StringTok{ }\KeywordTok{sprintf}\NormalTok{(}\StringTok{".*%s.*"}\NormalTok{, lastname)}
+  
+  \CommentTok{# Filters by using grepping with the above pattern on the donors}
+\NormalTok{  receipts <-}\StringTok{ }\NormalTok{receipts[ }\KeywordTok{grepl}\NormalTok{(pattern, receipts}\OperatorTok{$}\NormalTok{receipts2018.donor, }\DataTypeTok{ignore.case=}\OtherTok{TRUE}\NormalTok{) }\OperatorTok{|}\StringTok{ }\KeywordTok{grepl}\NormalTok{(pattern, receipts}\OperatorTok{$}\NormalTok{receipts2018.employer, }\DataTypeTok{ignore.case=}\OtherTok{TRUE}\NormalTok{), ]}
+\NormalTok{  receipts <-}\StringTok{ }\NormalTok{receipts }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\KeywordTok{ymd}\NormalTok{(receipts2018.date) }\OperatorTok{<}\StringTok{ }\KeywordTok{mdy}\NormalTok{(}\StringTok{"5/8/2018"}\NormalTok{))}
+  
+  \CommentTok{# Uncomment this print statement to check for discrepancy in resulting list of early close-funded receipts}
+  \CommentTok{# print(receipts)}
+  
+\NormalTok{  total <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(receipts}\OperatorTok{$}\NormalTok{receipts2018.amount)}
+  \KeywordTok{return}\NormalTok{(total)}
+\NormalTok{\}}
+
+\NormalTok{earlyCloseFundedAll <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
+
+\CommentTok{# For each candidate, calculate their early close-funded total}
+\ControlFlowTok{for}\NormalTok{ (row }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(candidateData)) \{}
+\NormalTok{    district <-}\StringTok{ }\NormalTok{candidateData[row, }\StringTok{"district"}\NormalTok{]}
+\NormalTok{    lastname <-}\StringTok{ }\NormalTok{candidateData[row, }\StringTok{"lastname"}\NormalTok{] }\OperatorTok{%>%}\StringTok{ }\KeywordTok{tolower}\NormalTok{()}
+\NormalTok{    firstnames <-}\StringTok{ }\KeywordTok{c}\NormalTok{(candidateData[row, }\StringTok{"firstname"}\NormalTok{] }\OperatorTok{%>%}\StringTok{ }\KeywordTok{tolower}\NormalTok{())}
+    \CommentTok{# <- append(strsplit(candidateData[row, "aliases"], "/"), candidateData[row, "firstname"])}
+\NormalTok{    receipts <-}\StringTok{ }\NormalTok{candidateData[row, }\StringTok{"receipts2018"}\NormalTok{]}
+\NormalTok{    receipts <-}\StringTok{ }\KeywordTok{do.call}\NormalTok{(data.frame, receipts)}
+    
+\NormalTok{    earlyCloseFundedAmt <-}\StringTok{ }\KeywordTok{calculateEarlyCloseFunding}\NormalTok{(receipts, lastname, firstnames)}
+
+\NormalTok{    earlyCloseFundedAll <-}\StringTok{ }\KeywordTok{append}\NormalTok{(earlyCloseFundedAll, earlyCloseFundedAmt)}
+\NormalTok{\}}
+
+\CommentTok{# Update the candidate data with their close-funded totals}
+\NormalTok{candidateDataEarlyClose}\OperatorTok{$}\NormalTok{earlyCloseFundedAmt <-}\StringTok{ }\NormalTok{earlyCloseFundedAll}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{calculate-relative-early-self-funding-compared-to-opponent-1}{%
+\subsubsection{Calculate relative early self funding compared to
+opponent}\label{calculate-relative-early-self-funding-compared-to-opponent-1}}
+
+\hypertarget{for-candidate-well-get-the-relative-funding-compared-to-their-district-opponent-in-the-other-party-2}{%
+\paragraph{For candidate, we'll get the relative funding compared to
+their district opponent in the other
+party}\label{for-candidate-well-get-the-relative-funding-compared-to-their-district-opponent-in-the-other-party-2}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candidateDataEarlyCloseNaN <-}\StringTok{ }\NormalTok{candidateDataEarlyClose }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(district) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{earlyCloseFundedTotal =} \KeywordTok{sum}\NormalTok{(earlyCloseFundedAmt), }\DataTypeTok{earlyCloseFundedRelative =}\NormalTok{ earlyCloseFundedAmt }\OperatorTok{/}\StringTok{ }\NormalTok{(earlyCloseFundedTotal)) }
+
+\NormalTok{candidateDataEarlyCloseClean <-}\StringTok{ }\NormalTok{candidateDataEarlyCloseNaN }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{earlyCloseFundedRelative =} \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.finite}\NormalTok{(earlyCloseFundedRelative)[}\DecValTok{1}\NormalTok{]) }\FloatTok{0.5} \ControlFlowTok{else}\NormalTok{ earlyCloseFundedRelative)}
+
+\ControlFlowTok{for}\NormalTok{ (row }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(candidateDataEarlyCloseNaN)) \{}
+\NormalTok{  receipts <-}\StringTok{ }\NormalTok{candidateDataEarlyCloseNaN[row, }\StringTok{"receipts2018"}\NormalTok{]}
+\NormalTok{  receipts <-}\StringTok{ }\KeywordTok{do.call}\NormalTok{(data.frame, receipts)}
+\NormalTok{  candidateDataEarlyCloseNaN[row, }\StringTok{"totalAmount"}\NormalTok{] =}\StringTok{ }\KeywordTok{sum}\NormalTok{(receipts}\OperatorTok{$}\NormalTok{receipts2018.amount)}
+\NormalTok{\}}
+
+\ControlFlowTok{for}\NormalTok{ (row }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(candidateDataEarlyCloseClean)) \{}
+\NormalTok{  receipts <-}\StringTok{ }\NormalTok{candidateDataEarlyCloseClean[row, }\StringTok{"receipts2018"}\NormalTok{]}
+\NormalTok{  receipts <-}\StringTok{ }\KeywordTok{do.call}\NormalTok{(data.frame, receipts)}
+\NormalTok{  candidateDataEarlyCloseClean[row, }\StringTok{"totalAmount"}\NormalTok{] =}\StringTok{ }\KeywordTok{sum}\NormalTok{(receipts}\OperatorTok{$}\NormalTok{receipts2018.amount)}
+\NormalTok{\}}
+
+\NormalTok{candidateDataEarlyCloseNaN <-}\StringTok{ }\NormalTok{candidateDataEarlyCloseNaN }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(district) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{combinedTotal =} \KeywordTok{sum}\NormalTok{(totalAmount), }\DataTypeTok{totalRelative =}\NormalTok{ totalAmount }\OperatorTok{/}\StringTok{ }\NormalTok{(combinedTotal)) }
+
+\NormalTok{candidateDataEarlyCloseClean <-}\StringTok{ }\NormalTok{candidateDataEarlyCloseClean }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(district) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{combinedTotal =} \KeywordTok{sum}\NormalTok{(totalAmount), }\DataTypeTok{totalRelative =}\NormalTok{ totalAmount }\OperatorTok{/}\StringTok{ }\NormalTok{(combinedTotal)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{totalRelative =} \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.finite}\NormalTok{(totalRelative)[}\DecValTok{1}\NormalTok{]) }\FloatTok{0.5} \ControlFlowTok{else}\NormalTok{ totalRelative)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{plot-early-close-funding-against-total-amount-raised}{%
+\subsubsection{Plot early close funding against total amount
+raised}\label{plot-early-close-funding-against-total-amount-raised}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candidateDataEarlyCloseClean }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(win }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ earlyCloseFundedRelative, }\DataTypeTok{y =}\NormalTok{ totalRelative, }\DataTypeTok{size =}\NormalTok{ earlyCloseFundedAmt)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Early Close Funding vs Total Amount Raised"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Relative Early Close Funding"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Relative Total Raised"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}
+    \DataTypeTok{size =} \StringTok{"Early Close Funding ($)"}
+\NormalTok{  ) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{final-story_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candidateDataEarlyCloseNaN }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(win }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{, }\KeywordTok{is.finite}\NormalTok{(earlyCloseFundedRelative)[}\DecValTok{1}\NormalTok{]) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ earlyCloseFundedRelative, }\DataTypeTok{y =}\NormalTok{ totalRelative, }\DataTypeTok{size =}\NormalTok{ earlyCloseFundedAmt)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Early Close Funding vs Total Amount Raised"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Relative Early Close Funding"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Relative Total Raised"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}
+    \DataTypeTok{size =} \StringTok{"Early Close Funding ($)"}
+\NormalTok{  ) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{final-story_files/figure-latex/unnamed-chunk-19-2.pdf}
+
+\hypertarget{compare-early-self-funding-to-margin-of-victory-1}{%
+\subsubsection{Compare early self funding to margin of
+victory}\label{compare-early-self-funding-to-margin-of-victory-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{candidateDataEarlyClean }\OperatorTok{%>%}
+\StringTok{  }\CommentTok{#filter(earlySelfFundedAmt > 0) %>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(win }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ earlySelfFundedRelative, }\DataTypeTok{y =}\NormalTok{ margin)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size=}\DecValTok{3}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Early Close Funding vs Margin of Victory"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Relative Close Self Funding"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Margin of Victory (percentage)"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{final-story_files/figure-latex/unnamed-chunk-20-1.pdf}
+
+\end{document}
